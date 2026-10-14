@@ -53,8 +53,8 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
 }
 
 .photo {
-  flex: 0 1 460px;
-  min-width: 280px;
+  flex: 0 1 auto;
+  min-width: 0;
   margin: 0;
   padding-top: 6px;
   position: sticky;
@@ -63,13 +63,16 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
   flex-direction: column;
   gap: 14px;
 }
+/* sized by the screen height so the whole photo always fits without scrolling */
 .photo img {
   display: block;
-  width: 100%;
-  aspect-ratio: 3 / 4;
+  height: min(calc(100vh - 210px), 680px);
+  height: min(calc(100svh - 210px), 680px);
+  aspect-ratio: 976 / 1356;
+  width: auto;
+  max-width: 100%;
   object-fit: cover;
-  object-position: 50% 62%;
-  border-radius: 12px;
+  object-position: 50% 100%;
 }
 .photo figcaption { font-size: 16px; font-style: italic; color: var(--faint); }
 
@@ -148,7 +151,8 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
 @media (max-width: 600px) {
   .container { padding: 56px 24px 64px; }
   .content { gap: 56px; }
-  .photo { position: static; min-width: 0; flex-basis: 100%; }
+  .photo { position: static; flex-basis: 100%; }
+  .photo img { width: 100%; height: auto; }
   .name { font-size: 48px; }
   .bio { font-size: 19px; }
   .section-title { font-size: 28px; }
