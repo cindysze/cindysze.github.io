@@ -31,13 +31,47 @@ a {
 a:hover { color: #ffffff; text-decoration-color: var(--text); }
 
 .container {
+  padding: 88px 72px 80px;
+}
+
+/* ---------- two-column homepage: text left, photo right ---------- */
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 64px 96px;
+}
+
+.content {
+  flex: 1 1 520px;
   max-width: 680px;
-  margin: 0 auto;
-  padding: 88px 24px 80px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 72px;
 }
+
+.photo {
+  flex: 0 1 460px;
+  min-width: 280px;
+  margin: 0;
+  padding-top: 6px;
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 50% 62%;
+  border-radius: 12px;
+}
+.photo figcaption { font-size: 16px; font-style: italic; color: var(--faint); }
 
 /* ---------- header ---------- */
 .header { display: flex; flex-direction: column; gap: 40px; }
@@ -112,7 +146,9 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
 
 /* ---------- phones ---------- */
 @media (max-width: 600px) {
-  .container { padding-top: 56px; gap: 56px; }
+  .container { padding: 56px 24px 64px; }
+  .content { gap: 56px; }
+  .photo { position: static; min-width: 0; flex-basis: 100%; }
   .name { font-size: 48px; }
   .bio { font-size: 19px; }
   .section-title { font-size: 28px; }

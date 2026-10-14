@@ -1,4 +1,6 @@
+// ---------- edit your content here ----------
 const writing = [
+  // label: "UCSD Guardian", "Essay", or "Notes"
   { title: "Hot Ones Got Hotter. Guests Stopped Quitting.", label: "Essay", date: "October 2026", href: "/hot-ones.html" },
   { title: "Jane Doe, we are with you", label: "UCSD Guardian", date: "October 2026", href: "https://ucsdguardian.org/2026/10/05/jane-doe-we-are-with-you/" },
   { title: "[Blog post: what I learned building my first data story]", label: "Notes", date: "[Month Year]", href: "#" },
@@ -31,7 +33,8 @@ const links = [
 
 export default function Home() {
   return (
-    <>
+    <div className="home">
+      <div className="content">
       <header className="header">
         <h1 className="name">Cindy Chen</h1>
         <div className="rule" />
@@ -125,6 +128,12 @@ export default function Home() {
         </div>
         <span className="place">San Diego</span>
       </footer>
-    </>
+      </div>
+
+      <figure className="photo">
+        <img src="/tahoe.jpg" alt="Cindy looking out over Emerald Bay at Lake Tahoe at dusk, shot on film" />
+        <figcaption>Emerald Bay, Lake Tahoe. Shot on film.</figcaption>
+      </figure>
+    </div>
   );
 }
