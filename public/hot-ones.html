@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
 <style>
-/* Layout: long-form scroll story — a ~640px reading column with wide breakouts for the chart, tap-out strip and title wall */
+/* Layout: long-form scroll story — a ~640px reading column with wide breakouts for the chart, wing grid and title wall */
 :root {
   --bg: #1c1b19; --card: #232220; --ink: #ece8e1; --muted: #a19d95; --faint: #8a857c; --rule: #34322e; --underline: #6b675f;
   --chili: #e5484d; --habanero: #ef8a3c; --mild: #e6c15a; --chili-soft: #e5484d22;
@@ -19,14 +19,14 @@
   color-scheme: dark;
 }
 
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 20px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 23px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--underline); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color .2s; }
 a:hover { text-decoration-color: var(--ink); }
 .back { font-size: 17px; font-style: italic; color: var(--faint); text-decoration: none; }
 .back:hover { color: var(--ink); }
 .page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 64px; }
-.col { max-width: 680px; margin: 0 auto; }
-.wide { max-width: 980px; margin: 0 auto; }
+.col { width: 100%; max-width: 900px; margin: 0 auto; }
+.wide { width: 100%; max-width: 1060px; margin: 0 auto; }
 .story { display: flex; flex-direction: column; gap: 56px; }
 section { display: flex; flex-direction: column; gap: 18px; }
 p { margin: 0; }
@@ -62,18 +62,28 @@ figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
 #heat .end { font-size: 14px; font-weight: 500; }
 #heat .annot { font-size: 13.5px; font-style: italic; fill: var(--ink); }
 figcaption { font-size: 14px; font-style: italic; color: var(--faint); }
+.video { margin-block: 8px; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: var(--card); border-radius: 6px; overflow: hidden; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* Tap-out strip */
-.strip { display: grid; grid-template-columns: repeat(21, minmax(0, 1fr)); gap: 4px; align-items: end; border-bottom: 1px solid var(--muted); padding-bottom: 6px; min-height: 88px; }
-.s-col { display: flex; flex-direction: column-reverse; align-items: center; gap: 4px; }
-.dot { width: 14px; height: 14px; border-radius: 50%; background: var(--chili); }
-.perfect { width: 14px; height: 4px; border-radius: 2px; background: var(--rule); }
-.s-labels { display: grid; grid-template-columns: repeat(21, minmax(0, 1fr)); gap: 4px; font-size: 12.5px; font-variant-numeric: lining-nums; color: var(--faint); text-align: center; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 15px; font-style: italic; color: var(--muted); align-items: center; }
+/* Wing grid */
+.wing-scroll { overflow-x: auto; }
+.wing-grid { display: flex; flex-direction: column; gap: 5px; width: max-content; }
+.wg-row { display: flex; align-items: center; gap: 1px; }
+.wg-lab { width: 30px; flex: none; margin-right: 8px; text-align: right; font-size: 13px; line-height: 1; color: var(--faint); font-variant-numeric: lining-nums; }
+.w { width: 16px; height: 16px; flex: none; display: block; color: #3d3a35; --bone: #57534c; }
+.wing-grid .w { width: var(--ws, 16px); height: var(--ws, 16px); }
+.w.out { color: var(--chili); --bone: #f3ddd2; filter: drop-shadow(0 0 4px #e5484d66); cursor: pointer; transition: transform .15s; outline: none; }
+.w.out:hover, .w.out:focus, .w.out.on { transform: scale(1.35); }
+.w.out:focus-visible { outline: 1px solid var(--chili); outline-offset: 1px; border-radius: 3px; }
+.wing-readout { min-height: 4em; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.4; }
+.wing-readout b { font-weight: 600; color: var(--ink); }
+.wing-readout .meta { font-style: italic; color: var(--faint); }
+.wing-readout .tap { font-style: italic; color: var(--chili); }
+.wing-readout .ttl { font-style: italic; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; font-style: italic; color: var(--muted); align-items: center; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
-.quitters { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 18px; font-size: 17px; }
-.quitters div { display: flex; gap: 8px; align-items: baseline; border-bottom: 1px solid var(--rule); padding-block: 5px; }
-.quitters .sn { font-size: 14px; font-style: italic; color: var(--faint); min-width: 30px; }
+.legend .w.out { cursor: default; }
 
 /* Formula */
 .formula { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 500; font-size: 18px; }
@@ -84,8 +94,11 @@ figcaption { font-size: 14px; font-style: italic; color: var(--faint); }
 .plus { color: var(--muted); }
 
 /* Spin */
-.spin { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
-.spin-card { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 22px 24px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px; min-height: 120px; }
+.spin { display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+.spin-intro { font-size: 17px; font-style: italic; color: var(--muted); }
+.spin-card { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 22px 24px; width: 100%; max-width: 640px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: 120px; justify-content: center; }
+.credit { font-size: 13px; font-style: italic; color: var(--faint); }
+.credit a { color: var(--faint); }
 .sg { font-size: 17px; font-style: italic; color: var(--muted); }
 .sp { font-weight: 500; font-size: clamp(26px, 4.2vw, 38px); line-height: 1.15; color: var(--ink); letter-spacing: -0.01em; }
 .ss { font-size: 16px; font-style: italic; color: var(--faint); }
@@ -98,8 +111,14 @@ button:hover { color: var(--ink); border-color: var(--ink); }
 button.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 button:disabled { opacity: .55; cursor: default; }
-.spin-btn { font-size: 18px; padding: 9px 22px; background: var(--chili); border-color: var(--chili); color: #fff; }
-.spin-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.wing-btn { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 8px; padding: 0; border: 0; background: none; border-radius: 50%; }
+.wing-btn:hover { background: none; }
+.wing-btn:disabled { opacity: 1; cursor: progress; }
+.plate { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; object-position: 50% 45%; background: #fff; display: block; box-shadow: 0 0 0 6px #f4efe8, 0 0 0 7px #d9d2c6, 0 10px 30px #e5484d55; transition: transform .25s; }
+.wing-btn:hover .plate { transform: rotate(-14deg) scale(1.04); }
+.wing-btn.spinning .plate { animation: wingspin .5s linear infinite; }
+@keyframes wingspin { to { transform: rotate(360deg); } }
+.wing-cta { font-size: 15px; font-style: italic; color: var(--chili); }
 
 /* Title wall */
 .wall { display: flex; flex-direction: column; gap: 12px; }
@@ -117,9 +136,6 @@ button:disabled { opacity: .55; cursor: default; }
 @media (max-width: 560px) {
   body { font-size: 17.5px; }
   .dek { font-size: 19px; }
-  .dot { width: 9px; height: 9px; }
-  .perfect { width: 9px; }
-  .s-labels { font-size: 8.5px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
@@ -140,18 +156,26 @@ button:disabled { opacity: .55; cursor: default; }
   </header>
 
   <section class="col">
-    <p>In high school, my friends and I tried the Hot Ones challenge: ten wings, ten sauces, each one hotter than the last. By wing <span class="fill">[number]</span>, <span class="fill">[friend's name]</span> was <span class="fill">[what happened: chugging milk, crying, pacing the kitchen]</span>. By the end, only <span class="fill">[number]</span> of us had finished.</p>
+    <p>In my senior year of high school, I had the bright idea to force my friends to try the Hot Ones challenge with me. Ten wings, ten sauces, each hotter than the last: what wasn’t to love? We were too cheap for the official set, which ran about $20 a bottle, so each of us hunted down a cheaper sauce with a similar Scoville rating. By wing seven, my friend Ethan was chugging milk, tears in his eyes. By the end, only three of us were left.</p>
     <p>On the actual show, celebrities almost never quit.</p>
-    <p>Since 2015, Hot Ones has put famous guests through the same ritual: host Sean Evans asks thoughtful interview questions while the guest works through ten increasingly brutal hot sauces. I analyzed data covering the show's first 21 seasons, all 300 episodes, to find out what really happens at that table. The wings got much hotter. The guests got much tougher. And the show turned their suffering into a formula.</p>
+    <p>Since 2015, Hot Ones has put hundreds of celebrities, from Shaquille O’Neal to Jennifer Lawrence, through the same ritual: host Sean Evans asks thoughtful interview questions while the guest works through ten increasingly brutal hot sauces. I wouldn’t call myself an avid fan, but I’m definitely a casual one. There’s something deeply humanizing about watching people worth tens of millions of dollars more than you being brought to tears by a few drops of hot sauce.</p>
+    <p>Yet even in tears, almost all of them make it to the last wing. Are celebrities just tougher than a bunch of high schoolers, or is something else going on? I analyzed data covering the show’s first 21 seasons, from 2015 to 2023 and all 300 episodes, to find out what really happens at that table. The wings got much hotter. The guests stopped tapping out. And the show, with all of its fame, has gotten much bigger than the wings.</p>
   </section>
 
   <section class="col">
     <h2>The heat hit its ceiling fast</h2>
-    <p>In Season 1, the hottest sauce on the table measured <span class="num">357,000</span> Scoville heat units. The mildest, Texas Pete, was just <span class="num">747</span>. By Season 4, the top of the lineup had jumped to <span class="num">2,000,000</span>, hundreds of times hotter than a jalapeño.</p>
-    <p>Then it stopped. For the next 17 seasons, the hottest sauce stayed at exactly 2 million, and the average sauce settled around <span class="num">300,000</span>. The show found its limit early and never pushed past it.</p>
+    <p>When Hot Ones premiered with rapper Tony Yayo as its first guest, the wings were still tame by today’s standards. Season 1 started with Texas Pete, at <span class="num">747</span> Scoville units, milder than the Tabasco on a diner table. It ended with Mad Dog 357, at <span class="num">357,000</span>, almost 500 times hotter.</p>
+    <p>The show quickly learned that pain makes good TV, and audiences agreed. Season 2 stretched to 40 episodes, and in 2016 it landed its first breakout hit, with comedy duo Key and Peele. That same season, it added Da Bomb Beyond Insanity, and Travis Kelce’s verdict after one bite was “Oh, that’s disgusting.” (Having tried it myself, I can confirm.) It isn’t technically the hottest sauce in the lineup (Scoville-wise, it’s only about <span class="num">135,600</span>, less than half of Mad Dog 357), but it tastes the most painful, and that’s exactly why it stays. Sean Evans has joked that fans won’t let it leave.</p>
+    <p>By Season 4, the show stopped borrowing its final sauce and built its own: The Last Dab, at <span class="num">2,000,000</span> Scoville units, more than five times hotter than anything in Season 1. It came with its own ritual. Before the last wing, Evans tells each guest it’s tradition to put a little extra on, though they don’t have to. Most do anyway, and that’s when things get strange.</p>
+    <p>Steve-O finished the gauntlet and then poured sauce straight into his own eye. David Blaine turned the tenth wing into a magic trick. Sterling K. Brown answered the burn with a Shakespearean sonnet.</p>
+    <figure class="video">
+      <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/KT6Mn-5uO4M?start=1255" title="Sterling K. Brown Performs Shakespeare While Eating Spicy Wings | Hot Ones" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <figcaption>Sterling K. Brown, after the Last Dab. Video: First We Feast / Hot Ones.</figcaption>
+    </figure>
+    <p>With that, the lineup found its shape. Each season, six sauces rotate out, and only four keep their seats: the show’s own The Classic, Los Calientes, and The Last Dab, plus Da Bomb. The house sauces come back as new versions. Da Bomb comes back exactly as it was, still terrible, every time.</p>
   </section>
 
-  <figure class="wide">
+  <figure class="col">
     <div class="fig-head">
       <div class="fig-title">Hot Ones maxed out its heat by Season 4</div>
       <div class="fig-sub">Scoville heat of the mildest, average and hottest sauce each season. Hover or tap a season.</div>
@@ -162,21 +186,34 @@ button:disabled { opacity: .55; cursor: default; }
   </figure>
 
   <section class="col">
-    <h2>Almost nobody taps out</h2>
-    <p>You might expect hotter sauces to mean more quitting. The opposite happened. Of 300 guests, 285 finished all ten wings. That's 95 percent.</p>
-    <p>Season 1 had the worst record: two of its eight guests tapped out. The last four seasons in the data, 18 through 21, were perfect. Every single guest finished.</p>
-    <p>My guess is preparation. Early guests walked in not knowing what they were facing. Now Hot Ones is famous, the lineup is public, and guests know exactly what's coming. Quitting on Hot Ones has become its own kind of headline, and nobody wants to be it.</p>
+    <p>The heat chart froze too. For the next 17 seasons, the hottest sauce stayed at exactly <span class="num">2 million</span>, and the average settled around <span class="num">300,000</span>. But that flat line hides something. The Last Dab has been rebuilt four times with hotter peppers, and every version still carries the same label: “2,000,000+.” In other words, the data can only say the sauce is at least that hot, not how much hotter it has become.</p>
   </section>
 
-  <figure class="wide">
+  <section class="col">
+    <h2>Almost nobody taps out</h2>
+    <p>You might expect hotter sauces to mean more quitting. After all, the final wing got more than five times hotter in just three seasons. But the opposite happened. Season 1 actually had the worst record: two of its eight guests tapped out, with a 75% completion rate. Meanwhile, the last four seasons in the data, which aired from 2022 to 2023, were perfect. Every single guest made it to the end, even Jennifer Lawrence, who sobbed through most of her wings.</p>
+    <p>So why did the wings get hotter while the quitting stopped? My guess: it comes down to how guests see the show. Back in 2015, Hot Ones was still a small, scrappy web series, and plenty of its guests had likely never heard of it before Sean Evans’ invitation showed up.</p>
+    <p>Eleven years later, being on Hot Ones is like a rite of passage. The channel has more than 14 million subscribers, and each season’s sauce lineup is announced before the episodes air, so guests know what’s coming, down to Da Bomb waiting at No. 8. A lot of celebrities show up as fans, and some, like Post Malone and Gordon Ramsay, have even come back for a second round. They’ve seen the classic episodes, and they want their own moment at the table. Finishing comes with a reward, too: once the last wing is down, Evans “rolls out the red carpet” and lets guests plug whatever they’re promoting. Quitting, on the other hand, earns you a spot in the show’s Hall of Shame.</p>
+  </section>
+
+  <figure class="col">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="wing" viewBox="0 0 24 24">
+        <g transform="rotate(-40 12 12)">
+          <path d="M12 1.5c3.6 0 6.2 3 6.2 6.6 0 2.7-1.5 4.9-3.6 6.1L13.4 15.4h-2.8l-1.2-1.2C7.3 13 5.8 10.8 5.8 8.1 5.8 4.5 8.4 1.5 12 1.5z" fill="currentColor"/>
+          <rect x="10.9" y="14.6" width="2.2" height="5.4" rx="1" style="fill: var(--bone)"/>
+          <circle cx="10.3" cy="20.6" r="1.75" style="fill: var(--bone)"/>
+          <circle cx="13.7" cy="20.6" r="1.75" style="fill: var(--bone)"/>
+        </g>
+      </symbol>
+    </svg>
     <div class="fig-head">
-      <div class="fig-title">Only 15 guests have ever tapped out</div>
-      <div class="fig-sub">Each dot is one guest who didn't finish, by season.</div>
+      <div class="fig-title">285 made it to the last wing. 15 didn't.</div>
+      <div class="fig-sub">Every guest from Seasons 1–21, one wing each. Hover or tap a red wing to see who it was.</div>
     </div>
-    <div class="strip" id="strip"></div>
-    <div class="s-labels" id="slabels"></div>
-    <div class="legend"><span><i class="dot" aria-hidden="true"></i>Tapped out</span><span><i class="perfect" aria-hidden="true"></i>Every guest finished</span></div>
-    <div class="quitters" id="quitters"></div>
+    <div class="wing-scroll"><div class="wing-grid" id="wingGrid"></div></div>
+    <div class="wing-readout" id="wingReadout" aria-live="polite"></div>
+    <div class="legend"><span><svg class="w" aria-hidden="true"><use href="#wing"/></svg>Finished</span><span><svg class="w out" aria-hidden="true"><use href="#wing"/></svg>Tapped out</span></div>
   </figure>
 
   <section class="col">
@@ -186,19 +223,9 @@ button:disabled { opacity: .55; cursor: default; }
       <span class="p p1">Guest</span><span class="plus">+</span><span class="p p2">What happened</span><span class="plus">+</span><span class="p p3">While Eating Spicy Wings</span>
     </div>
     <p><span class="title-ex">Jennifer Lawrence Sobs in Pain While Eating Spicy Wings.</span> <span class="title-ex">Gal Gadot Does a Spit Take While Eating Spicy Wings.</span> <span class="title-ex">Stephen Curry Is On Fire While Eating Spicy Wings.</span></p>
-    <p>Nearly every title, 98 percent, ends with spicy wings. Only the middle changes, and that's where the fun is. The most common opening word is "Gets," in 36 titles. Often the wings are the attacker: guests get Destroyed, Crushed, Body Slammed and Knocked Out <em>by</em> spicy wings, as if the food stepped into a boxing ring.</p>
-    <p>Then there are the one-offs, 98 titles whose verb never appears again. Guests have Hallucinated, Achieved Enlightenment, Solved a Rubik's Cube and Pirouetted in Pain. <span class="fill">[Add your 2–3 favorites.]</span></p>
-    <p>Some titles even predicted the outcome. Mike Epps <em>Gets Crushed</em>. Rob Corddry <em>Cries Real Tears</em>. Both tapped out.</p>
-  </section>
-
-  <section class="col spin">
-    <h2>Spin the wings</h2>
-    <div class="spin-card" id="spinCard">
-      <span class="sg" id="sg">Who's in the hot seat?</span>
-      <span class="sp" id="sp">Spin to find out</span>
-      <span class="ss">While Eating Spicy Wings</span>
-    </div>
-    <button class="spin-btn" id="spinBtn" type="button">Spin the wings</button>
+    <p>Nearly every title, 98 percent to be exact, ends with spicy wings. Only the middle changes, and that’s where the fun is. The most common opening word is “Gets,” in 36 titles. Often, the wings are the attacker: in 19 titles, a guest gets something done to them “by Spicy Wings.”</p>
+    <p>The attack is usually personal. Basketball players Kevin Love and Blake Griffin get Dunked On and Full-Court Pressed. Wrestler Chris Jericho gets Body Slammed. Roast comedian Jeff Ross gets Roasted, and Jon Bernthal, who played the Punisher, gets Punished. Somewhere at First We Feast, someone clearly has a lot of fun writing these.</p>
+    <p>And then there are the one-offs, 98 titles whose verb never appears again. Guests have Hallucinated, Achieved Enlightenment, Solved a Rubik’s Cube and Pirouetted in Pain. Aubrey Plaza Snorts Milk. And my personal favorite: Ken Jeong, a licensed doctor before he was an actor, Performs a Physical.</p>
   </section>
 
   <section class="wide wall">
@@ -211,11 +238,27 @@ button:disabled { opacity: .55; cursor: default; }
 
   <section class="col">
     <h2>Why it works</h2>
-    <p>Hot Ones could have kept escalating, with hotter sauces, bigger stunts and more pain. Instead it found a ceiling and stayed there. The heat is constant. What changes is the person in the chair and how they handle it. The show isn't really about whether guests survive, because almost all of them do. It's about watching someone famous become, for a few minutes, just a person <span class="fill">[callback to your lede, e.g. "crying over a chicken wing, like my friends in that kitchen"]</span>.</p>
+    <p>Notice what almost none of the titles mention: whether the guest made it to the last wing. Hot Ones isn’t really asking whether celebrities can survive the wings, because almost all of them do. It’s watching how they survive: whether they sob, sweat, laugh, hiccup, or get a leg cramp.</p>
+    <p>So are celebrities just tougher than a bunch of high schoolers? Not really. They know exactly what’s coming, they’ve watched the classics, and they want their moment in the hot seat. Ethan, chugging milk at wing seven, didn’t have 14 million people watching or a red carpet waiting at the end. If he had, maybe he would’ve made it to wing ten too.</p>
+  </section>
+
+  <section class="col spin">
+    <h2>Spin the wings</h2>
+    <p class="spin-intro">Mix a real guest with another guest's mishap and invent an episode that never aired.</p>
+    <button class="wing-btn" id="spinBtn" type="button" aria-label="Spin the wings">
+      <img class="plate" id="plate" src="hot-ones-wing.jpg" alt="" width="180" height="180">
+      <span class="wing-cta" id="spinLabel">Tap the wing</span>
+    </button>
+    <div class="spin-card" id="spinCard">
+      <span class="sg" id="sg">Who's in the hot seat?</span>
+      <span class="sp" id="sp">Spin to find out</span>
+      <span class="ss">While Eating Spicy Wings</span>
+    </div>
+    <p class="credit">Wing photo: <a href="https://commons.wikimedia.org/wiki/File:Buffalo_Chicken_Wing_(8579500502).jpg">Calgary Reviews</a>, <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></p>
   </section>
 
   <footer class="col method">
-    <p><b>Methodology.</b> Data comes from the TidyTuesday project (August 2023) and covers Hot Ones Seasons 1–21, through mid-2023. The show has continued since. Two holiday specials with no listed guest were left out of the title analysis. The "what happened" part of each title was extracted in Python by removing the guest's name and the spicy-wings ending, and the first word of what remains was treated as the verb. <span class="fill">[GitHub link]</span></p>
+    <p><b>Methodology.</b> Episode, guest, and sauce data come from the TidyTuesday Hot Ones dataset (August 8, 2023), compiled from Wikipedia’s list of Hot Ones episodes. It covers Seasons 1–21, from March 2015 to August 2023. Sauce Scoville ratings come from the same dataset. A guest was counted as quitting if they did not finish all ten wings, as recorded in the dataset’s “finished” field. Spin-offs like Hot Ones Versus were excluded. Two holiday specials with no listed guest were left out of the title analysis. The "what happened" part of each title was extracted in Python by removing the guest's name and the spicy-wings ending, and the first word of what remains was treated as the verb.</p>
   </footer>
 
 </article></div>
@@ -238,9 +281,9 @@ const fmt = n => Math.round(n).toLocaleString("en-US");
     el("line", { x1: X(v), x2: X(v), y1: 46, y2: 52, stroke: "var(--muted)" }, svg);
     el("text", { x: X(v), y: 66, "text-anchor": "middle" }, svg).textContent = fmt(v);
   });
-  const marks = [[747, "Texas Pete, 747", "start"], [5000, "Jalapeño ≈ 5,000", "middle"], [357000, "S1 hottest", "middle"], [2e6, "S4+ hottest, 2M", "end"]];
+  const marks = [[747, "Texas Pete, 747", "start"], [5000, "Jalapeño ≈ 5,000", "start"], [357000, "S1 hottest", "end"], [2e6, "S4+ hottest, 2M", "end"]];
   marks.forEach(([v, t, a]) => {
-    el("line", { x1: X(v), x2: X(v), y1: 22, y2: 38, stroke: "var(--ink)", "stroke-width": 1.5 }, svg);
+    el("line", { x1: X(v), x2: X(v), y1: 27, y2: 38, stroke: "var(--ink)", "stroke-width": 1.5 }, svg);
     el("text", { x: X(v) + (a === "start" ? -2 : a === "end" ? 2 : 0), y: 16, "text-anchor": a, class: "lab" }, svg).textContent = t;
   });
 })();
@@ -290,46 +333,75 @@ const fmt = n => Math.round(n).toLocaleString("en-US");
   show(3);
 })();
 
-/* ---------- Tap-out strip ---------- */
+/* ---------- Wing grid ---------- */
 (() => {
-  const strip = document.getElementById("strip"), labs = document.getElementById("slabels"), q = document.getElementById("quitters");
-  const quit = D.titles.filter(t => !t.finished);
+  const QUIT = [{"g":"Tony Yayo","s":1,"y":"2015","t":"Tony Yayo Talks Shmoney Dance and Eminem's Taco Habit While Eating Spicy Wings"},{"g":"DJ Khaled","s":1,"y":"2015","t":"DJ Khaled Talks Fuccbois, Finga Licking, and Media Dinosaurs While Eating Spicy Wings"},{"g":"Mike Epps","s":2,"y":"2016","t":"Mike Epps Gets Crushed by Spicy Wings"},{"g":"Jim Gaffigan","s":2,"y":"2016","t":"Jim Gaffigan Rediscovers His Flop Sweat Eating Spicy Wings"},{"g":"Rob Corddry","s":2,"y":"2016","t":"Rob Corddry Cries Real Tears Eating Spicy Wings"},{"g":"Ricky Gervais","s":3,"y":"2017","t":"Ricky Gervais Pits His Mild British Palate Against Spicy Wings"},{"g":"Mario Batali","s":4,"y":"2017","t":"Mario Batali Celebrates Thanksgiving with Spicy Wings"},{"g":"Taraji P. Henson","s":5,"y":"2018","t":"Taraji P. Henson Needs a Stunt Double to Eat Spicy Wings"},{"g":"Lil Yachty","s":7,"y":"2018","t":"Lil Yachty Has His First Experience With Spicy Wings"},{"g":"E-40","s":7,"y":"2018","t":"E-40 Asks a Fan to Save Him While Eating Spicy Wings"},{"g":"Shaq","s":8,"y":"2019","t":"Shaq Tries to Not Make a Face While Eating Spicy Wings"},{"g":"Chance the Rapper","s":10,"y":"2019","t":"Chance the Rapper Battles Spicy Wings"},{"g":"Eric André","s":12,"y":"2020","t":"Eric André Enters A Fugue State While Eating Spicy Wings"},{"g":"Quavo","s":15,"y":"2021","t":"Quavo Is Stunned by Spicy Wings"},{"g":"Pusha T","s":17,"y":"2022","t":"Pusha T Has Beef With Spicy Wings"}];
+  const grid = document.getElementById("wingGrid"), ro = document.getElementById("wingReadout");
+  const wing = out => {
+    const w = el("svg", { class: out ? "w out" : "w", viewBox: "0 0 24 24" });
+    el("use", { href: "#wing" }, w);
+    if (!out) w.setAttribute("aria-hidden", "true");
+    return w;
+  };
+  let sel = null;
+  const select = (w, q) => {
+    if (sel) sel.classList.remove("on");
+    sel = w; w.classList.add("on");
+    ro.innerHTML = "";
+    const l1 = document.createElement("div"), b = document.createElement("b"), m = document.createElement("span"), tap = document.createElement("span");
+    b.textContent = q.g; m.className = "meta"; m.textContent = ` · Season ${q.s} · ${q.y} · `; tap.className = "tap"; tap.textContent = "tapped out";
+    l1.append(b, m, tap);
+    const l2 = document.createElement("div"); l2.className = "ttl"; l2.textContent = `“${q.t}”`;
+    ro.append(l1, l2);
+  };
+  let first = null;
   D.finish.forEach(f => {
-    const col = document.createElement("div"); col.className = "s-col";
-    const n = f.count - f.sum;
-    col.title = `Season ${f.season}: ${f.sum} of ${f.count} finished`;
-    if (n === 0) { const p = document.createElement("i"); p.className = "perfect"; col.appendChild(p); }
-    for (let i = 0; i < n; i++) { const d = document.createElement("i"); d.className = "dot"; col.appendChild(d); }
-    strip.appendChild(col);
-    const l = document.createElement("div"); l.textContent = f.season; labs.appendChild(l);
+    const row = document.createElement("div"); row.className = "wg-row";
+    const lab = document.createElement("span"); lab.className = "wg-lab"; lab.textContent = "S" + f.season; row.appendChild(lab);
+    const guests = D.titles.filter(t => t.season === f.season);
+    // holiday specials (S4, S13) aren't in D.titles; pad so every season shows its full guest count
+    for (let i = guests.length; i < f.count; i++) guests.push({ finished: true });
+    guests.forEach(t => {
+      const w = wing(!t.finished); row.appendChild(w);
+      if (t.finished) return;
+      const q = QUIT.find(q => q.g === t.guest && q.s === t.season) || { g: t.guest, s: t.season, y: "", t: t.guest + " " + t.phrase };
+      w.setAttribute("tabindex", "0"); w.setAttribute("role", "img");
+      w.setAttribute("aria-label", `${q.g}, Season ${q.s}, tapped out`);
+      ["mouseenter", "focus", "click"].forEach(ev => w.addEventListener(ev, () => select(w, q)));
+      if (!first) first = [w, q];
+    });
+    grid.appendChild(row);
   });
-  quit.forEach(t => {
-    const r = document.createElement("div");
-    const s = document.createElement("span"); s.className = "sn"; s.textContent = "S" + t.season;
-    const g = document.createElement("span"); g.textContent = t.guest;
-    r.append(s, g); q.appendChild(r);
-  });
+  if (first) select(...first);
+  // scale wings so the longest season row spans the full figure width (16px minimum; narrow screens scroll)
+  const longest = Math.max(...D.finish.map(f => f.count)), scroll = grid.parentElement;
+  const fit = () => grid.style.setProperty("--ws", Math.max(16, Math.floor((scroll.clientWidth - 38) / longest - 1)) + "px");
+  new ResizeObserver(fit).observe(scroll); fit();
 })();
 
 /* ---------- Spin the wings ---------- */
 (() => {
-  const card = document.getElementById("spinCard"), sg = document.getElementById("sg"), sp = document.getElementById("sp"), btn = document.getElementById("spinBtn");
-  const rand = () => D.titles[Math.floor(Math.random() * D.titles.length)];
+  const card = document.getElementById("spinCard"), sg = document.getElementById("sg"), sp = document.getElementById("sp"), btn = document.getElementById("spinBtn"), label = document.getElementById("spinLabel");
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const guests = [...new Set(D.titles.map(t => t.guest))];
+  // phrases that read as an action ("On Chicago Cubs Rivalries…" doesn't)
+  const phrases = D.titles.filter(t => !/^(On|And|&)\b/.test(t.phrase)).map(t => ({ guest: t.guest, phrase: t.phrase }));
+  // a real guest + someone else's mishap = an episode that never aired
+  const mash = () => { const g = pick(guests); let p; do p = pick(phrases); while (p.guest === g); return { guest: g, phrase: p.phrase }; };
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   btn.addEventListener("click", () => {
     btn.disabled = true; card.classList.remove("landed");
     const land = () => {
-      const p = rand();
-      sg.textContent = p.guest + " · Season " + p.season + (p.finished ? "" : " · tapped out");
-      sp.textContent = p.phrase;
+      const m = mash();
+      sg.textContent = m.guest; sp.textContent = m.phrase;
       card.classList.remove("rolling"); void card.offsetWidth; card.classList.add("landed");
-      btn.disabled = false; btn.textContent = "Spin again";
+      btn.disabled = false; btn.classList.remove("spinning"); label.textContent = "Spin again";
     };
     if (reduced) return land();
-    card.classList.add("rolling");
+    card.classList.add("rolling"); btn.classList.add("spinning");
     let delay = 40, elapsed = 0;
     (function tick() {
-      const d = rand(); sg.textContent = d.guest; sp.textContent = d.phrase;
+      const m = mash(); sg.textContent = m.guest; sp.textContent = m.phrase;
       elapsed += delay;
       if (elapsed < 1800) { delay *= 1.12; setTimeout(tick, delay); } else land();
     })();

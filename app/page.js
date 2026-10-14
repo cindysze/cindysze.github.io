@@ -36,7 +36,7 @@ export default function Home() {
     <div className="home">
       <div className="content">
       <header className="header">
-        <h1 className="name">cindy chen</h1>
+        <h1 className="name">Cindy Chen</h1>
         <div className="rule" />
         <div className="bio">
           <p>
