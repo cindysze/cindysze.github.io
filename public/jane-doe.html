@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jane Doe, we are with you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Writing page: same reading column and type as hot-ones.html, plus a "published in" note for pieces that ran elsewhere */
+:root {
+  --bg: #1c1b19; --card: #232220; --ink: #ece8e1; --muted: #a19d95; --faint: #8a857c; --rule: #34322e; --underline: #6b675f;
+  --body: Newsreader, "Iowan Old Style", Georgia, serif;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 23px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--underline); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color .2s; }
+a:hover { text-decoration-color: var(--ink); }
+.back { font-size: 17px; font-style: italic; color: var(--faint); text-decoration: none; }
+.back:hover { color: var(--ink); }
+.page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 64px; }
+.col { width: 100%; max-width: 900px; margin: 0 auto; }
+.story { display: flex; flex-direction: column; gap: 56px; }
+section { display: flex; flex-direction: column; gap: 18px; }
+p { margin: 0; }
+h1 { font-family: var(--body); text-wrap: balance; margin: 0; line-height: 1.05; font-size: clamp(40px, 6.5vw, 64px); font-weight: 400; letter-spacing: -0.02em; }
+.kicker { font-size: 17px; font-style: italic; color: var(--faint); }
+.byline { font-size: 17px; color: var(--muted); }
+.byline b { color: var(--ink); }
+.hero { display: flex; flex-direction: column; gap: 18px; }
+.fill { background: #e5484d22; color: #e5484d; border-bottom: 1.5px dashed #e5484d; padding: 0 4px; font-style: italic; border-radius: 3px; }
+
+/* "Originally published in" note */
+.pub { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; border: 1px solid var(--rule); border-left: 3px solid var(--ink); background: var(--card); border-radius: 4px; padding: 12px 16px; font-size: 16px; line-height: 1.45; color: var(--muted); }
+.pub b { color: var(--ink); font-weight: 500; }
+.pub a { margin-left: auto; font-style: italic; white-space: nowrap; }
+
+.resources { border-top: 1px solid var(--rule); padding-top: 18px; font-size: 16px; color: var(--muted); line-height: 1.6; display: flex; flex-direction: column; gap: 6px; }
+.resources b { color: var(--ink); font-weight: 500; }
+.ednote { font-size: 17px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 14px; }
+
+/* desktop renders at 80% scale, matching hot-ones.html */
+@media (min-width: 700px) { .page { zoom: 0.8; } }
+@media (max-width: 560px) {
+  body { font-size: 17.5px; }
+  .pub a { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<div class="page"><article class="story">
+
+  <header class="col hero">
+    <a class="back" href="/">← Cindy Chen</a>
+    <div class="pub">
+      <span>Originally published in <b>The UCSD Guardian</b> · Opinion · October 5, 2026</span>
+      <a href="https://ucsdguardian.org/2026/10/05/jane-doe-we-are-with-you/">Read it there →</a>
+    </div>
+    <div class="kicker">Opinion · October 2026</div>
+    <h1>Jane Doe, we are with you</h1>
+    <p class="byline">By <b>Cindy Chen</b></p>
+    <p class="ednote"><i>Editor’s note: This article references sexual assault.</i></p>
+  </header>
+
+  <section class="col">
+    <p>Last month, a former Cornell University student, now known as Jane Doe, filed a lawsuit that alleges that she was drugged and gang-raped by seven members of the Chi Phi fraternity in October 2024. Their names are Matthew Ingalls, Johnathan Newell, Winston Lee, Gillio Lopes, Diego Sarabia, Scott Norris, and Scott Kretzschmar.</p>
+    <p>According to the lawsuit, Jane Doe, then 20, spent the evening of Oct. 19 drinking first at her sorority house and later at Moonies, a local bar. Around 11 p.m., she went to the Chi Phi house, where fraternity members Ingalls, her friend, and Newell allegedly pressured her into taking ketamine and began forcing oral and vaginal sex onto her as more men came into the room. At 1:42 a.m., Newell allegedly invited the fraternity’s 57-member Snapchat group chat to join for “free p—-” upstairs. Ingalls replied, “I f——love chi phi,” and Kretzshmar wrote, “first person pov not a bit,” the suit shows. The alleged assault went on until around 5:45 a.m.</p>
+    <p>Prosecutors reopened the investigation on Sept. 28, 2026, and the state attorney general has since taken over the case, though none of the seven men have been charged. Lopes, Norris and Kretzschmar have publicly denied any sexual misconduct.</p>
+    <p>People often think of sexual violence as an act between two categories of people: the perpetrators and victims. But far more often than not, there is a third category: Those Who Let It Happen.</p>
+    <p>A 2019 survey from the Association of American Universities shows that roughly one in seven college students said that they witnessed a situation they believed could have led to sexual assault. Fewer than half had intervened directly or confronted the person involved, and 14% said they did nothing because they weren’t sure what to do. If the Cornell case proves anything, it is that rape culture does not survive only because of those who commit the crime. It survives because of the many who allow it to.</p>
+    <p>Before I go any further, I want to address a message. Two days after the assault, one of the defendants allegedly apologized to Jane Doe over text about “how things went down.” He wrote, according to messages obtained by CBS News, that his memory was “kinda fuzzy” and that he and another brother had felt sorry for being too drunk to “shut it down and kick people out before it got way out of hand.”</p>
+    <p>Dear Mr. Defendant, what Jane Doe is accusing you of is not downing one too many Fireball shots or lacking skill at crowd control. It is rape. It is your brothers picking up their phones and RSVPing to her gang-rape. It is you and the other six men in that bedroom, she tells us, snorting ketamine off of her body as she lay there drifting in and out of consciousness, unable to push you away or resist you.</p>
+    <p>People have compared this case to that of Brock Turner, the Stanford University swimmer who raped an unconscious 22-year old woman behind a dumpster in 2015. The case made national news after Chanel Miller, the survivor of the assault, published her victim impact statement, which went viral. Millions read her account alongside the judge’s reasoning that a prison sentence would have a “severe impact” on Turner and a letter from Turner’s father calling the fallout from his son’s conviction a steep price to pay for “20 minutes of action.” The backlash led voters to recall the judge and California to expand its legal definition of rape.</p>
+    <p>I went to the same high school as Miller. She graduated 14 years before me, and I remember reading her memoir “Know My Name” in my junior year English class. The memoir ends with Miller finally reclaiming her name after years of going by “Emily Doe,” as well as with the letters she received from survivors all around the world. She wrote, in part, so that the next woman would have an easier path than she did.</p>
+    <p>It is unbelievably disappointing to see how, 11 years later, so little has changed. I was in fourth grade when the country rallied around Miller. Today, I am a junior in college. Jane Doe was supposed to be the other woman with an easier path; instead, she was failed by the very people meant to protect her.</p>
+    <p>When District Attorney Matthew Van Houten defended his decision not to press charges, he pointed to Jane Doe’s sworn statement to the police, quoting her saying she was “pretty ok” with a threesome and concluding that her account described sexual conduct that was “voluntary, conscious, and consensual.”</p>
+    <p>But in that very same written statement, as reported by NBC News, Jane Doe said she felt “the most intoxicated [she’d] ever been in [her] life,” that the men asked her for sex so many times that she finally gave in and that it “felt like coercion.” In a recorded interview with campus police on Nov. 14, 2024, CBS News reported that she allegedly said, “I can say with 100% confidence I was raped.”</p>
+    <p>Van Houten has since said he was not given access to the transcript and that if he did, he would have investigated the case further. He also first denied having the group chat messages but later admitted he had. And what did he make of them? The messages, he told CBS News, were “disgusting, vulgar,” but had “nothing to do with the issue of consent.” To Mr. Van Houten: In what world does a group chat inviting 57 men upstairs for “free p—-” have nothing to do with consent? He is one of those who let it happen.</p>
+    <p>Rape culture is so deeply engrained in what we find normal that it shapes the way survivors think of themselves. After Jane Doe was assaulted, she went through the feelings many survivors do: denial, then shame and finally acceptance. “My reputation is destroyed and I’m utterly ashamed,” Jane Doe texted Ingalls, the friend who invited her to the party, four days after the sexual assault.</p>
+    <p>It took an anonymous comment on an online forum about Greek life for her to realize what had happened to her. A stranger wrote that Chi Phi “gang-raped a sophomore” and urged others to “report them.” It was, Doe later told investigators, “the first time I had ever heard the narrative change that I wasn’t a whore and that I was assaulted.”</p>
+    <p>There is more to be done. In the state of New York, where Jane Doe’s case will be tried if charges are filed, there is a loophole: Unless a victim was unconscious or drugged without her knowledge, prosecutors generally have to prove force or a clear “no.” A woman who chose to drink, no matter how drunk she was, cannot be considered too incapacitated to consent as long as she was still conscious, under this loophole.</p>
+    <p>New York State Assemblyman Jeffrey Dinowitz has been trying to close this “voluntary intoxication loophole” since 2019. The State Senate has passed his bill multiple times, but it has never reached the Assembly, where Speaker Carl Heastie says there still aren’t enough votes. Now, with Gov. Kathy Hochul promising to push it through, the Assembly vote is the only thing left standing in the way.</p>
+    <p>To everyone reading this: We can change this, and it starts with us. If you are a New Yorker, please call your Assembly member and ask them to support the bill, then call Heastie’s office at 518-455-3791 and ask him to bring it to a vote. If you’re not, find out whether your state is one of the 18 others with laws like New York’s and make noise.</p>
+    <p>And wherever you are, look out for each other. Check on the friend who’s had too much to drink; walk her home. Say something when something feels wrong, even if no one else does. Believe people when they tell you what happened to them. Being drunk is not consent, and it never has been. Be the person who stops it, not one of Those Who Let it Happen.</p>
+    <p>And lastly, a message to Jane Doe. If you are reading this, I am sorry. I am sorry that you were questioned, doubted and made to carry the shame that belonged to those who hurt you. You were brave enough to tell the police what happened to you two years ago, and you were told it wasn’t a crime. It should not have taken a lawsuit and reporting by The Cornell Daily Sun for anyone to finally listen.</p>
+    <p>I want to leave you with this. In 2016, Miller ended her victim impact statement with a message to girls everywhere: “When people doubt you or dismiss you, I am with you.” She knew she couldn’t save every person, she said, but she hoped people listening would absorb a small amount of light, a small acknowledgement that they couldn’t be silenced. Years later, some of that light reached a high school English classroom, and it reached me. So let me pass a little onto you. You are beautiful, you are loved and you are brave. You are not alone, and we believe you.</p>
+    <p>Jane Doe, we are with you.</p>
+  </section>
+
+  <footer class="col resources">
+    <p><b>Help is available. If you or someone you know experienced sexual violence, you are not alone, and what you experienced was not your fault.</b></p>
+    <p>Campus Advocacy, Resources, and Education at the Sexual Assault Resource Center, also known as CARE at SARC, offers free, confidential support to UC San Diego students, staff and faculty. Its office is in the Student Services Center, 5th floor, Suite 500, and is open Monday through Friday, 8:30 a.m. to 4:00 p.m. Advocates are also on call 24 hours a day, including weekends and holidays, at 858-534-5793.</p>
+    <p>For off-campus support, the San Diego 24/7 Crisis Hotline can be reached at 888-385-4657, and the national RAINN hotline at 800-656-4673. To file a report, contact the UC San Diego Police Department at 858-534-HELP (4357) and the San Diego Police Department at 619-531-2000. In an emergency, dial 911.</p>
+  </footer>
+
+</article></div>
+</body>
+</html>

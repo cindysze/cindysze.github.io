@@ -2,7 +2,7 @@
 const writing = [
   // label: "UCSD Guardian", "Essay", or "Notes"
   { title: "Hot Ones Got Hotter. Guests Stopped Quitting.", label: "Essay", date: "October 2026", href: "/hot-ones.html" },
-  { title: "Jane Doe, we are with you", label: "UCSD Guardian", date: "October 2026", href: "https://ucsdguardian.org/2026/10/05/jane-doe-we-are-with-you/" },
+  { title: "Jane Doe, we are with you", label: "UCSD Guardian", date: "October 2026", href: "/jane-doe.html" },
   { title: "[Blog post: what I learned building my first data story]", label: "Notes", date: "[Month Year]", href: "#" },
   { title: "[Guardian opinion piece title]", label: "UCSD Guardian", date: "[Month Year]", href: "#" },
   { title: "[Guardian opinion piece title]", label: "UCSD Guardian", date: "[Month Year]", href: "#" },
