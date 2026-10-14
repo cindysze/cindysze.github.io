@@ -45,11 +45,11 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
 
 .content {
   flex: 1 1 520px;
-  max-width: 680px;
+  max-width: 600px;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 72px;
+  gap: 60px;
 }
 
 .photo {
@@ -74,36 +74,36 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
   object-fit: cover;
   object-position: 50% 100%;
 }
-.photo figcaption { font-size: 16px; font-style: italic; color: var(--faint); }
+.photo figcaption { font-size: 14.5px; font-style: italic; color: var(--faint); }
 
 /* ---------- header ---------- */
-.header { display: flex; flex-direction: column; gap: 40px; }
+.header { display: flex; flex-direction: column; gap: 32px; }
 
 .name {
   margin: 0;
   font-weight: 400;
-  font-size: 64px;
+  font-size: 52px;
   line-height: 1;
   letter-spacing: -0.02em;
 }
 
 .rule { height: 1px; background: var(--line); }
 
-.bio { display: flex; flex-direction: column; gap: 22px; font-size: 21px; line-height: 1.65; }
+.bio { display: flex; flex-direction: column; gap: 18px; font-size: 18px; line-height: 1.65; }
 .bio p { margin: 0; }
 .bio .currently { color: var(--muted); font-style: italic; }
 
 /* ---------- sections ---------- */
-.section { display: flex; flex-direction: column; gap: 28px; }
+.section { display: flex; flex-direction: column; gap: 22px; }
 
 .section-title {
   margin: 0;
   font-weight: 500;
-  font-size: 32px;
+  font-size: 26px;
   letter-spacing: -0.01em;
 }
 
-.list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 13px; }
 
 .list li {
   display: flex;
@@ -111,7 +111,7 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
   align-items: baseline;
   justify-content: space-between;
   gap: 2px 24px;
-  font-size: 20px;
+  font-size: 17.5px;
   line-height: 1.55;
 }
 
@@ -119,14 +119,14 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
 
 /* the small square bullet */
 .bullet {
-  width: 6px;
-  height: 6px;
-  flex: 0 0 6px;
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
   background: var(--faint);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }
 
-.date { font-size: 16px; color: var(--faint); font-style: italic; padding-left: 24px; }
+.date { font-size: 14.5px; color: var(--faint); font-style: italic; padding-left: 24px; }
 .desc { color: var(--muted); }
 
 .pub { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
@@ -142,7 +142,7 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
   gap: 16px;
   padding-top: 32px;
   border-top: 1px solid var(--line);
-  font-size: 18px;
+  font-size: 16px;
 }
 .footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
 .place { color: var(--faint); font-style: italic; }
@@ -153,8 +153,8 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
   .content { gap: 56px; }
   .photo { position: static; flex-basis: 100%; }
   .photo img { width: 100%; height: auto; }
-  .name { font-size: 48px; }
-  .bio { font-size: 19px; }
-  .section-title { font-size: 28px; }
-  .list li { font-size: 18px; }
+  .name { font-size: 44px; }
+  .bio { font-size: 17px; }
+  .section-title { font-size: 24px; }
+  .list li { font-size: 16.5px; }
 }
