@@ -3,7 +3,7 @@ const writing = [
   // label: "UCSD Guardian", "Essay", or "Notes"
   { title: "Hot Ones Got Hotter. Guests Stopped Quitting.", label: "Essay", date: "October 2026", href: "/hot-ones.html" },
   { title: "Jane Doe, we are with you", label: "UCSD Guardian", date: "October 2026", href: "/jane-doe.html" },
-  { title: "[Blog post: what I learned building my first data story]", label: "Notes", date: "[Month Year]", href: "#" },
+  { title: "The First Time Machines Took Our Jobs", label: "Notes", date: "March 2026", href: "/machines.html" },
   { title: "[Guardian opinion piece title]", label: "UCSD Guardian", date: "[Month Year]", href: "#" },
   { title: "[Guardian opinion piece title]", label: "UCSD Guardian", date: "[Month Year]", href: "#" },
 ];
@@ -36,7 +36,15 @@ export default function Home() {
     <div className="home">
       <div className="content">
       <header className="header">
-        <h1 className="name">Cindy Chen</h1>
+        <div className="name-row">
+          <h1 className="name">Cindy Chen</h1>
+          <a className="mail" href="mailto:cyc014@ucsd.edu" aria-label="Email Cindy" title="cyc014@ucsd.edu">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3.5 6.5 8.5 6.5 8.5-6.5" />
+            </svg>
+          </a>
+        </div>
         <div className="rule" />
         <div className="bio">
           <p>

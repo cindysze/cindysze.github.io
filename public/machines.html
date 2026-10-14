@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The First Time Machines Took Our Jobs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Writing page: same reading column and type as hot-ones.html and jane-doe.html */
+:root {
+  --bg: #1c1b19; --card: #232220; --ink: #ece8e1; --muted: #a19d95; --faint: #8a857c; --rule: #34322e; --underline: #6b675f;
+  --body: Newsreader, "Iowan Old Style", Georgia, serif;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 23px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--underline); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color .2s; }
+a:hover { text-decoration-color: var(--ink); }
+.back { font-size: 17px; font-style: italic; color: var(--faint); text-decoration: none; }
+.back:hover { color: var(--ink); }
+.page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 64px; }
+.col { width: 100%; max-width: 900px; margin: 0 auto; }
+.story { display: flex; flex-direction: column; gap: 56px; }
+section { display: flex; flex-direction: column; gap: 18px; }
+p { margin: 0; }
+h1 { font-family: var(--body); text-wrap: balance; margin: 0; line-height: 1.05; font-size: clamp(40px, 6.5vw, 64px); font-weight: 400; letter-spacing: -0.02em; }
+.kicker { font-size: 17px; font-style: italic; color: var(--faint); }
+.dek { font-size: 22px; color: var(--muted); font-style: italic; line-height: 1.45; }
+.byline { font-size: 17px; color: var(--muted); }
+.byline b { color: var(--ink); }
+.hero { display: flex; flex-direction: column; gap: 18px; }
+
+figure { margin: 10px 0; display: flex; flex-direction: column; gap: 10px; }
+figure img { width: 100%; height: auto; max-height: 640px; object-fit: cover; display: block; border-radius: 4px; }
+figcaption { font-size: 14px; font-style: italic; color: var(--faint); }
+.closer { font-style: italic; }
+
+/* desktop renders at 80% scale, matching the other writing pages */
+@media (min-width: 700px) { .page { zoom: 0.8; } }
+@media (max-width: 560px) {
+  body { font-size: 17.5px; }
+  .dek { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<div class="page"><article class="story">
+
+  <header class="col hero">
+    <a class="back" href="/">← Cindy Chen</a>
+    <div class="kicker">Notes · March 2026</div>
+    <h1>The First Time Machines Took Our Jobs</h1>
+    <p class="dek">IBM 7090, meet ChatGPT.</p>
+    <p class="byline">By <b>Cindy Chen</b> · March 27, 2026</p>
+  </header>
+
+  <section class="col">
+    <p>I watched <em>Hidden Figures</em> today for the first time, late (as usual) to one of the defining films of this decade. (Those who know me know I’m hilariously behind on most popular movies; this, like <em>Star Wars</em>, was no exception.) The film follows the real story of three brilliant African-American women at NASA—Katherine Johnson, Dorothy Vaughan, Mary Jackson—the brains behind the first launch of a U.S. astronaut into orbit. The historical context is wonderfully handled, and the film provides an honest depiction into the racial and sexist discrimination of the 1960s. You may know it for the powerfully delivered speech (“I work like a dog, day and night…”) by Katherine Johnson (Taraji P. Henson), where she recounts the lack of “coloured” bathrooms in the vicinity where she works. Yet perhaps most startlingly, I couldn’t help but notice another theme as I watched the film: the sword of progress.</p>
+    <p>It’s no surprise that my generation is no stranger to this phenomenon of progress. Born and raised in an era of massive social and political upheaval, we have witnessed the rise of the first technological boom (iPhones, social media, the internet) while entering the cusp of another. I began elementary school playing Temple Run and Angry Birds 2 on my mother’s iPhone 6; today, as a college student, I ask ChatGPT to quiz me before my exams. In many ways, we are a generation of contradiction—reliant on the very tools which slowly erode us. And in many other ways, we are frighteningly similar to the women in <em>Hidden Figures</em>.</p>
+    <p>Perhaps the largest plot point in the film is NASA’s purchase of the IBM 7090, one of the first and fastest commercial supercomputers of the time. Demanding no sleep, food, or wage besides purchasing cost, the machine can perform over 24,000 calculations per second—faster than any human being on Earth. Naturally, its very existence threatens the fundamental livelihoods of Katherine, Dorothy, and Mary, who work as human computers in the West Area. It raises the philosophical question: can progress do more harm than good?</p>
+    <figure>
+      <img src="machines-satellite.jpg" alt="A satellite drifting in orbit above the clouds and blue ocean of Earth" width="1280" height="1274" loading="lazy">
+      <figcaption>A satellite over the Pacific Ocean, photographed from Space Shuttle Atlantis in 1991. Photo by NASA.</figcaption>
+    </figure>
+    <p>There’s a particular scene which depicts this moral quandary well. A few days before the launch of astronaut John Glenn, Al Harrison (the fictionalized Space Task Group head) calls Katherine Johnson to his office. When asked if there is “something wrong,” Harrison explains that it is quite the opposite: the IBM is churning out numbers a fraction of the time any human can. <em>That’s good, then,</em> Katherine says. Harrison takes a second to think before answering, <em>Yeah, maybe.</em> Contrite, he goes on to reveal that they no longer have a need for Katherine in the department anymore. His final musing is the most revealing: <em>Progress is a double-edged sword.</em></p>
+    <p>Today, the IBM 7090 seems like an almost laughably minor evil compared to the technologies we now face. If the supercomputers of the 1960s were like Captain Underpants, current-day LLMs like ChatGPT or Gemini are Voldemort-adjacent. At any hour or second of the day, any person with a device and access to stable internet can generate the answers to the universe—whether that be drafting a love confession or explaining the concepts of quantum mechanics.</p>
+    <p>In the job market, this has hit Gen Z particularly hard. No need look elsewhere than U.S. Labor Bureau statistics to find that 2025 was the worst year for recent graduates in thirty-seven years. I’ve felt this shift in my personal life, as well. My friends and I often joke about the forbidden j- and i-words (job and internship); but beyond the lightheartedness, the alarm is there. Everywhere I go, I am met with anecdotes of tech layoffs and the friend-I-know-whose-son graduated from Berkeley and still can’t find a job. It’s exhausting. It’s also paradoxical. Despite growing up immersed in technology, many of us feel woefully unprepared for what comes next. And like the supercomputers who replaced the human computers in <em>Hidden Figures</em>, there is a fear that we, like the Katherines’ and Dorothys’ of that age, will too be replaced.</p>
+    <p>In writing this meditation, I don’t mean to evoke more fear or inspire undue anxieties; there’s certainly enough of that to go around. I doubt that AI will result in the “end of all jobs” as many doomsayers claim. I also disagree that AI is the only reason for the plummeting job market. In the tech industry, many whistleblowers have vouched that the recent layoffs are more a result of overinflation (think supply &gt; demand) and excessive hiring than anything else. But there is little question in my mind that artificial intelligence will shape the future as we know it.</p>
+    <p>In <em>Hidden Figures</em>, all three women—Katherine, Dorothy, and Mary—respond to the technological disruption in their own ways. Dorothy borrows a manual on the IBM 7090, learning to use the new technology while training other women at West Area Computers. Mary begins taking night classes at the local high school and later becomes NASA’s first Black female engineer. And Katherine, who had earlier been dismissed, proves instrumental in the final Friendship 7 calculations after astronaut John Glenn refuses to board without her verifications. Poetically, all three women appear to represent three different ways of adapting to such a change: learning the new technology, pivoting to a new field, and safeguarding it from error.</p>
+    <p>We see those very same actions appearing prophetically now. Tools like Claude and ChatGPT’s Codex for “vibe-coding” have become overwhelmingly popular as people are able to use AI to code for the first time (learning). Since 2024, law schools have received record numbers of applications as recent graduates flock to a seemingly more stable market (pivoting). And in many domains, human oversight of artificial intelligent have time-and-again proven indispensable (safeguarding).</p>
+    <p>While the IBM 7090 did eventually replace human computers, it also paved the way for incredible human progress. Its lightning-speed calculations powered NASA’s Project Mercury and Apollo program—later opening up countless industries from computer science to system operations. Rather than removing human value, it redefined it. Funny enough, it seems that the technologies we fear most unintentionally reveal what makes us uniquely human.</p>
+    <p class="closer">The IBM 7090 could calculate faster than Katherine Johnson, but it could not be trusted without her.</p>
+  </section>
+
+</article></div>
+</body>
+</html>

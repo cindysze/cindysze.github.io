@@ -87,6 +87,11 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
   letter-spacing: -0.02em;
 }
 
+.name-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.mail { display: inline-flex; color: var(--muted); text-decoration: none; padding: 4px; border-radius: 6px; transition: color 0.2s; }
+.mail:hover { color: #ffffff; }
+.mail:focus-visible { outline: 1px solid var(--text); outline-offset: 2px; }
+
 .rule { height: 1px; background: var(--line); }
 
 .bio { display: flex; flex-direction: column; gap: 18px; font-size: 17px; line-height: 1.65; }
