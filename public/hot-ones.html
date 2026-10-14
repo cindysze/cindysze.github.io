@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hot Ones by the Numbers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Layout: long-form scroll story — a ~640px reading column with wide breakouts for the chart, tap-out strip and title wall */
+:root {
+  --bg: #1c1b19; --card: #232220; --ink: #ece8e1; --muted: #a19d95; --faint: #8a857c; --rule: #34322e; --underline: #6b675f;
+  --chili: #e5484d; --habanero: #ef8a3c; --mild: #e6c15a; --chili-soft: #e5484d22;
+  --display: Newsreader, "Iowan Old Style", Georgia, serif;
+  --body: Newsreader, "Iowan Old Style", Georgia, serif;
+  --mono: Newsreader, "Iowan Old Style", Georgia, serif;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 20px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--underline); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color .2s; }
+a:hover { text-decoration-color: var(--ink); }
+.back { font-size: 17px; font-style: italic; color: var(--faint); text-decoration: none; }
+.back:hover { color: var(--ink); }
+.page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 64px; }
+.col { max-width: 680px; margin: 0 auto; }
+.wide { max-width: 980px; margin: 0 auto; }
+.story { display: flex; flex-direction: column; gap: 56px; }
+section { display: flex; flex-direction: column; gap: 18px; }
+p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.05; }
+h1 { font-size: clamp(40px, 6.5vw, 64px); font-weight: 400; letter-spacing: -0.02em; }
+h2 { font-size: clamp(26px, 3.4vw, 32px); font-weight: 500; letter-spacing: -0.01em; }
+.kicker { font-size: 17px; font-style: italic; color: var(--faint); }
+.dek { font-size: 22px; color: var(--muted); font-style: italic; line-height: 1.45; }
+.byline { font-size: 17px; color: var(--muted); }
+.byline b { color: var(--ink); }
+.hero { display: flex; flex-direction: column; gap: 18px; }
+.fill { background: var(--chili-soft); color: var(--chili); border-bottom: 1.5px dashed var(--chili); padding: 0 4px; font-style: italic; border-radius: 3px; }
+.note { font-size: 14px; font-style: italic; color: var(--faint); line-height: 1.5; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+.title-ex { font-style: italic; }
+
+/* Scoville ruler */
+.ruler { border-top: 1px solid var(--rule); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.ruler svg { width: 100%; height: auto; display: block; overflow: visible; }
+.ruler text { font-family: var(--body); font-size: 12px; font-style: italic; fill: var(--faint); }
+.ruler .lab { font-family: var(--body); font-size: 13.5px; font-style: normal; font-weight: 500; fill: var(--ink); }
+
+/* Figures */
+figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.fig-head { display: flex; flex-direction: column; gap: 2px; }
+.fig-title { font-weight: 500; font-size: 22px; }
+.fig-sub { font-size: 16px; font-style: italic; color: var(--muted); }
+.readout { font-size: 15px; font-variant-numeric: tabular-nums lining-nums; color: var(--ink); min-height: 1.4em; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.readout span i { font-style: normal; color: var(--muted); }
+.chart-wrap { overflow-x: auto; }
+#heat { width: 100%; min-width: 520px; height: auto; display: block; touch-action: pan-y; }
+#heat text { font-family: var(--body); font-size: 12.5px; fill: var(--faint); font-variant-numeric: lining-nums; }
+#heat .end { font-size: 14px; font-weight: 500; }
+#heat .annot { font-size: 13.5px; font-style: italic; fill: var(--ink); }
+figcaption { font-size: 14px; font-style: italic; color: var(--faint); }
+
+/* Tap-out strip */
+.strip { display: grid; grid-template-columns: repeat(21, minmax(0, 1fr)); gap: 4px; align-items: end; border-bottom: 1px solid var(--muted); padding-bottom: 6px; min-height: 88px; }
+.s-col { display: flex; flex-direction: column-reverse; align-items: center; gap: 4px; }
+.dot { width: 14px; height: 14px; border-radius: 50%; background: var(--chili); }
+.perfect { width: 14px; height: 4px; border-radius: 2px; background: var(--rule); }
+.s-labels { display: grid; grid-template-columns: repeat(21, minmax(0, 1fr)); gap: 4px; font-size: 12.5px; font-variant-numeric: lining-nums; color: var(--faint); text-align: center; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 15px; font-style: italic; color: var(--muted); align-items: center; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.quitters { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 18px; font-size: 17px; }
+.quitters div { display: flex; gap: 8px; align-items: baseline; border-bottom: 1px solid var(--rule); padding-block: 5px; }
+.quitters .sn { font-size: 14px; font-style: italic; color: var(--faint); min-width: 30px; }
+
+/* Formula */
+.formula { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 500; font-size: 18px; }
+.formula .p { padding: 6px 14px; border-radius: 4px; }
+.p1 { background: var(--ink); color: var(--bg); }
+.p2 { background: var(--chili); color: #fff; }
+.p3 { border: 1px solid var(--underline); color: var(--muted); font-style: italic; }
+.plus { color: var(--muted); }
+
+/* Spin */
+.spin { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.spin-card { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 22px 24px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px; min-height: 120px; }
+.sg { font-size: 17px; font-style: italic; color: var(--muted); }
+.sp { font-weight: 500; font-size: clamp(26px, 4.2vw, 38px); line-height: 1.15; color: var(--ink); letter-spacing: -0.01em; }
+.ss { font-size: 16px; font-style: italic; color: var(--faint); }
+.spin-card.rolling .sp, .spin-card.rolling .sg { filter: blur(1.4px); opacity: .7; }
+.spin-card.landed { animation: land .45s ease; }
+@keyframes land { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
+
+button { font-family: var(--body); font-weight: 500; font-size: 16px; border: 1px solid var(--underline); background: transparent; color: var(--muted); padding: 6px 14px; border-radius: 999px; cursor: pointer; transition: background .15s, color .15s; }
+button:hover { color: var(--ink); border-color: var(--ink); }
+button.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+button:disabled { opacity: .55; cursor: default; }
+.spin-btn { font-size: 18px; padding: 9px 22px; background: var(--chili); border-color: var(--chili); color: #fff; }
+.spin-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+/* Title wall */
+.wall { display: flex; flex-direction: column; gap: 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.count { font-size: 16px; font-style: italic; color: var(--muted); min-height: 1.3em; }
+.grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.tile { background: var(--card); border: 1px solid var(--rule); border-radius: 999px; padding: 5px 13px; font-size: 16px; line-height: 1.3; animation: pop .25s ease; max-width: 100%; }
+.tile .g { color: var(--muted); margin-right: 5px; }
+.tile .ph { font-weight: 500; }
+.tile .q { margin-left: 6px; font-size: 13px; font-style: italic; color: var(--chili); }
+@keyframes pop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+.more { align-self: flex-start; }
+
+.method { border-top: 1px solid var(--rule); padding-top: 18px; font-size: 16px; color: var(--muted); line-height: 1.6; }
+@media (max-width: 560px) {
+  body { font-size: 17.5px; }
+  .dek { font-size: 19px; }
+  .dot { width: 9px; height: 9px; }
+  .perfect { width: 9px; }
+  .s-labels { font-size: 8.5px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page"><article class="story">
+
+  <header class="col hero">
+    <a class="back" href="/">← Cindy Chen</a>
+    <div class="kicker">Essay · October 2026</div>
+    <h1>Hot Ones Got Hotter. Guests Stopped Quitting.</h1>
+    <p class="dek">I analyzed 21 seasons of the internet's spiciest talk show: every sauce, every guest, every episode title. Here's what really happens in the hot seat.</p>
+    <p class="byline">By <b>Cindy Chen</b></p>
+    <div class="ruler" aria-label="Scoville scale from 1,000 to 2 million heat units">
+      <svg id="ruler" viewBox="0 0 640 74" role="img"></svg>
+      <p class="note">The Scoville scale, logarithmic. Each tick is ten times hotter than the last.</p>
+    </div>
+  </header>
+
+  <section class="col">
+    <p>In high school, my friends and I tried the Hot Ones challenge: ten wings, ten sauces, each one hotter than the last. By wing <span class="fill">[number]</span>, <span class="fill">[friend's name]</span> was <span class="fill">[what happened: chugging milk, crying, pacing the kitchen]</span>. By the end, only <span class="fill">[number]</span> of us had finished.</p>
+    <p>On the actual show, celebrities almost never quit.</p>
+    <p>Since 2015, Hot Ones has put famous guests through the same ritual: host Sean Evans asks thoughtful interview questions while the guest works through ten increasingly brutal hot sauces. I analyzed data covering the show's first 21 seasons, all 300 episodes, to find out what really happens at that table. The wings got much hotter. The guests got much tougher. And the show turned their suffering into a formula.</p>
+  </section>
+
+  <section class="col">
+    <h2>The heat hit its ceiling fast</h2>
+    <p>In Season 1, the hottest sauce on the table measured <span class="num">357,000</span> Scoville heat units. The mildest, Texas Pete, was just <span class="num">747</span>. By Season 4, the top of the lineup had jumped to <span class="num">2,000,000</span>, hundreds of times hotter than a jalapeño.</p>
+    <p>Then it stopped. For the next 17 seasons, the hottest sauce stayed at exactly 2 million, and the average sauce settled around <span class="num">300,000</span>. The show found its limit early and never pushed past it.</p>
+  </section>
+
+  <figure class="wide">
+    <div class="fig-head">
+      <div class="fig-title">Hot Ones maxed out its heat by Season 4</div>
+      <div class="fig-sub">Scoville heat of the mildest, average and hottest sauce each season. Hover or tap a season.</div>
+    </div>
+    <div class="readout" id="readout" aria-live="polite"></div>
+    <div class="chart-wrap"><svg id="heat" viewBox="0 0 760 360" role="img" aria-label="Line chart of Scoville heat by season"></svg></div>
+    <figcaption>Log scale. Source: TidyTuesday (Aug 2023), Seasons 1–21.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>Almost nobody taps out</h2>
+    <p>You might expect hotter sauces to mean more quitting. The opposite happened. Of 300 guests, 285 finished all ten wings. That's 95 percent.</p>
+    <p>Season 1 had the worst record: two of its eight guests tapped out. The last four seasons in the data, 18 through 21, were perfect. Every single guest finished.</p>
+    <p>My guess is preparation. Early guests walked in not knowing what they were facing. Now Hot Ones is famous, the lineup is public, and guests know exactly what's coming. Quitting on Hot Ones has become its own kind of headline, and nobody wants to be it.</p>
+  </section>
+
+  <figure class="wide">
+    <div class="fig-head">
+      <div class="fig-title">Only 15 guests have ever tapped out</div>
+      <div class="fig-sub">Each dot is one guest who didn't finish, by season.</div>
+    </div>
+    <div class="strip" id="strip"></div>
+    <div class="s-labels" id="slabels"></div>
+    <div class="legend"><span><i class="dot" aria-hidden="true"></i>Tapped out</span><span><i class="perfect" aria-hidden="true"></i>Every guest finished</span></div>
+    <div class="quitters" id="quitters"></div>
+  </figure>
+
+  <section class="col">
+    <h2>Every title follows the same formula</h2>
+    <p>If you've scrolled past a Hot Ones video, you've seen the title format, even if you never noticed it.</p>
+    <div class="formula" aria-label="Guest plus what happened plus While Eating Spicy Wings">
+      <span class="p p1">Guest</span><span class="plus">+</span><span class="p p2">What happened</span><span class="plus">+</span><span class="p p3">While Eating Spicy Wings</span>
+    </div>
+    <p><span class="title-ex">Jennifer Lawrence Sobs in Pain While Eating Spicy Wings.</span> <span class="title-ex">Gal Gadot Does a Spit Take While Eating Spicy Wings.</span> <span class="title-ex">Stephen Curry Is On Fire While Eating Spicy Wings.</span></p>
+    <p>Nearly every title, 98 percent, ends with spicy wings. Only the middle changes, and that's where the fun is. The most common opening word is "Gets," in 36 titles. Often the wings are the attacker: guests get Destroyed, Crushed, Body Slammed and Knocked Out <em>by</em> spicy wings, as if the food stepped into a boxing ring.</p>
+    <p>Then there are the one-offs, 98 titles whose verb never appears again. Guests have Hallucinated, Achieved Enlightenment, Solved a Rubik's Cube and Pirouetted in Pain. <span class="fill">[Add your 2–3 favorites.]</span></p>
+    <p>Some titles even predicted the outcome. Mike Epps <em>Gets Crushed</em>. Rob Corddry <em>Cries Real Tears</em>. Both tapped out.</p>
+  </section>
+
+  <section class="col spin">
+    <h2>Spin the wings</h2>
+    <div class="spin-card" id="spinCard">
+      <span class="sg" id="sg">Who's in the hot seat?</span>
+      <span class="sp" id="sp">Spin to find out</span>
+      <span class="ss">While Eating Spicy Wings</span>
+    </div>
+    <button class="spin-btn" id="spinBtn" type="button">Spin the wings</button>
+  </section>
+
+  <section class="wide wall">
+    <h2>All 298 titles</h2>
+    <div class="filters" id="filters" role="group" aria-label="Filter titles"></div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="grid" id="grid"></div>
+    <button class="more" id="more" type="button" hidden></button>
+  </section>
+
+  <section class="col">
+    <h2>Why it works</h2>
+    <p>Hot Ones could have kept escalating, with hotter sauces, bigger stunts and more pain. Instead it found a ceiling and stayed there. The heat is constant. What changes is the person in the chair and how they handle it. The show isn't really about whether guests survive, because almost all of them do. It's about watching someone famous become, for a few minutes, just a person <span class="fill">[callback to your lede, e.g. "crying over a chicken wing, like my friends in that kitchen"]</span>.</p>
+  </section>
+
+  <footer class="col method">
+    <p><b>Methodology.</b> Data comes from the TidyTuesday project (August 2023) and covers Hot Ones Seasons 1–21, through mid-2023. The show has continued since. Two holiday specials with no listed guest were left out of the title analysis. The "what happened" part of each title was extracted in Python by removing the guest's name and the spicy-wings ending, and the first word of what remains was treated as the verb. <span class="fill">[GitHub link]</span></p>
+  </footer>
+
+</article></div>
+
+<script>
+const D = {"titles": [{"guest": "Tony Yayo", "phrase": "Talks Shmoney Dance and Eminem's Taco Habit", "verb": "Talks", "season": 1, "unique": false, "finished": false}, {"guest": "Anthony Rizzo", "phrase": "On Chicago Cubs Rivalries & Baseball Superstitions", "verb": "On", "season": 1, "unique": true, "finished": true}, {"guest": "Machine Gun Kelly", "phrase": "Talks Diddy, Hangovers, & Amber Rose", "verb": "Talks", "season": 1, "unique": false, "finished": true}, {"guest": "Gunplay", "phrase": "Talks Rick Ross, Wingstop, and X-Box Live Fights", "verb": "Talks", "season": 1, "unique": false, "finished": true}, {"guest": "Ja Rule", "phrase": "Talks 50 Cent Beef, Jail Recipes, and Media Stereotypes", "verb": "Talks", "season": 1, "unique": false, "finished": true}, {"guest": "B.o.B.", "phrase": "Talks Eggplant Fridays, Kid Rock, and Snapchat", "verb": "Talks", "season": 1, "unique": false, "finished": true}, {"guest": "Prince Amukamara", "phrase": "Talks NFL Salaries & Pre-Game Sex", "verb": "Talks", "season": 1, "unique": false, "finished": true}, {"guest": "DJ Khaled", "phrase": "Talks Fuccbois, Finga Licking, and Media Dinosaurs", "verb": "Talks", "season": 1, "unique": false, "finished": false}, {"guest": "Curren$y", "phrase": "Talks Munchies, Industry Games, and Rap Dogs", "verb": "Talks", "season": 2, "unique": false, "finished": true}, {"guest": "Tinashe", "phrase": "Talks NFL Dances and 2015's Sexiest Songs", "verb": "Talks", "season": 2, "unique": false, "finished": true}, {"guest": "Tommy Chong", "phrase": "Talks Weed, Bernie Sanders, and Smoking with Snoop", "verb": "Talks", "season": 2, "unique": false, "finished": true}, {"guest": "T.J. Miller", "phrase": "Talks Deadpool, Hecklers, and Relationship Advice", "verb": "Talks", "season": 2, "unique": false, "finished": true}, {"guest": "Coolio", "phrase": "Talks Hip-Hop Cooking and Gangsta's Paradise Folklore", "verb": "Talks", "season": 2, "unique": false, "finished": true}, {"guest": "Joey Fatone", "phrase": "Talks *NSYNC, DJ Khaled, and Guy Fieri", "verb": "Talks", "season": 2, "unique": false, "finished": true}, {"guest": "Michael Rapaport", "phrase": "Talks LeBron James, Phife Dawg, & Reality TV", "verb": "Talks", "season": 2, "unique": false, "finished": true}, {"guest": "Key & Peele", "phrase": "Lose Their Minds", "verb": "Lose", "season": 2, "unique": true, "finished": true}, {"guest": "Riff Raff", "phrase": "Goes Full Burly Boy", "verb": "Goes", "season": 2, "unique": false, "finished": true}, {"guest": "Eddie Huang", "phrase": "Gets Destroyed", "verb": "Gets", "season": 2, "unique": false, "finished": true}, {"guest": "Chris D'Elia", "phrase": "Turns Into DJ Khaled", "verb": "Turns", "season": 2, "unique": false, "finished": true}, {"guest": "Mike Epps", "phrase": "Gets Crushed", "verb": "Gets", "season": 2, "unique": false, "finished": false}, {"guest": "Jim Gaffigan", "phrase": "Rediscovers His Flop Sweat", "verb": "Rediscovers", "season": 2, "unique": true, "finished": false}, {"guest": "Carly Aquilino", "phrase": "Takes on the Spicy Wings Challenge", "verb": "Takes", "season": 2, "unique": false, "finished": true}, {"guest": "Redman", "phrase": "Wilds Out", "verb": "Wilds", "season": 2, "unique": true, "finished": true}, {"guest": "Rob Gronkowski", "phrase": "Gets Blindsided", "verb": "Gets", "season": 2, "unique": false, "finished": true}, {"guest": "Rob Corddry", "phrase": "Cries Real Tears", "verb": "Cries", "season": 2, "unique": false, "finished": false}, {"guest": "Jeff Ross", "phrase": "Gets Roasted", "verb": "Gets", "season": 2, "unique": false, "finished": true}, {"guest": "David Cross", "phrase": "Embraces the Extremes of Spicy Wings", "verb": "Embraces", "season": 2, "unique": false, "finished": true}, {"guest": "Eric Andr\u00e9", "phrase": "Turns Into Tay Zonday", "verb": "Turns", "season": 2, "unique": false, "finished": true}, {"guest": "Joe Budden", "phrase": "Keeps It Real", "verb": "Keeps", "season": 2, "unique": false, "finished": true}, {"guest": "Matty Matheson", "phrase": "Turns Into a Motivational Speaker", "verb": "Turns", "season": 2, "unique": false, "finished": true}, {"guest": "RZA and Paul Banks", "phrase": "Tag Team Spicy Wings", "verb": "Tag", "season": 2, "unique": true, "finished": true}, {"guest": "Bert Kreischer", "phrase": "Sweats Profusely", "verb": "Sweats", "season": 2, "unique": false, "finished": true}, {"guest": "YG", "phrase": "Keeps His Bool Eating Spicy Nuggets", "verb": "Keeps", "season": 2, "unique": false, "finished": true}, {"guest": "Jay Pharoah", "phrase": "Has a Staring Contest", "verb": "Has", "season": 2, "unique": false, "finished": true}, {"guest": "Harley Morenstein", "phrase": "Has His Worst Day of 2016", "verb": "Has", "season": 2, "unique": false, "finished": true}, {"guest": "Travis Kelce", "phrase": "Gets Woozy", "verb": "Gets", "season": 2, "unique": false, "finished": true}, {"guest": "Hasan Minhaj", "phrase": "Has an Out-of-Body Experience", "verb": "Has", "season": 2, "unique": false, "finished": true}, {"guest": "Kevin Hart", "phrase": "Catches a High", "verb": "Catches", "season": 2, "unique": false, "finished": true}, {"guest": "Martin Garrix", "phrase": "Tests His Limits", "verb": "Tests", "season": 2, "unique": false, "finished": true}, {"guest": "Bobby Lee", "phrase": "Has an Accident", "verb": "Has", "season": 2, "unique": false, "finished": true}, {"guest": "Tony Hawk", "phrase": "Eats Spicy Wings LIVE at ComplexCon", "verb": "Eats", "season": 2, "unique": false, "finished": true}, {"guest": "Action Bronson", "phrase": "Blows His High", "verb": "Blows", "season": 2, "unique": true, "finished": true}, {"guest": "T-Pain", "phrase": "Has a Tongue Seizure", "verb": "Has", "season": 2, "unique": false, "finished": true}, {"guest": "Rachael Ray", "phrase": "Mainlines Hot Sauce for Thanksgiving", "verb": "Mainlines", "season": 2, "unique": true, "finished": true}, {"guest": "Tom Colicchio", "phrase": "Goes Full Top Chef", "verb": "Goes", "season": 2, "unique": false, "finished": true}, {"guest": "Post Malone", "phrase": "Sauces on Everyone", "verb": "Sauces", "season": 2, "unique": true, "finished": true}, {"guest": "N.O.R.E.", "phrase": "Gets Wasted", "verb": "Gets", "season": 2, "unique": false, "finished": true}, {"guest": "James Franco and Bryan Cranston", "phrase": "Bond", "verb": "Bond", "season": 2, "unique": true, "finished": true}, {"guest": "Padma Lakshmi", "phrase": "Gracefully Destroys Spicy Wings", "verb": "Gracefully", "season": 3, "unique": true, "finished": true}, {"guest": "Joey (CoCo) Diaz", "phrase": "Breaks Out the Blue Cheese", "verb": "Breaks", "season": 3, "unique": true, "finished": true}, {"guest": "Danny Brown", "phrase": "Has An Orgasm", "verb": "Has", "season": 3, "unique": false, "finished": true}, {"guest": "Ricky Gervais", "phrase": "Pits His Mild British Palate Against Spicy Wings", "verb": "Pits", "season": 3, "unique": true, "finished": false}, {"guest": "Charlie Day", "phrase": "Learns to Love Ridiculously Spicy Wings", "verb": "Learns", "season": 3, "unique": false, "finished": true}, {"guest": "Mac DeMarco", "phrase": "Tries to Stay Chill", "verb": "Tries", "season": 3, "unique": false, "finished": true}, {"guest": "Russell Brand", "phrase": "Achieves Enlightenment", "verb": "Achieves", "season": 3, "unique": true, "finished": true}, {"guest": "Charlie Sloth", "phrase": "Makes His Mum Proud", "verb": "Makes", "season": 3, "unique": false, "finished": true}, {"guest": "Kyle Kinane", "phrase": "Gets Angry", "verb": "Gets", "season": 3, "unique": false, "finished": true}, {"guest": "Dax Shepard", "phrase": "Does Mental Math", "verb": "Does", "season": 3, "unique": false, "finished": true}, {"guest": "H3H3 Productions", "phrase": "Does Couples Therapy", "verb": "Does", "season": 3, "unique": false, "finished": true}, {"guest": "Keke Palmer", "phrase": "Laughs Uncontrollably", "verb": "Laughs", "season": 3, "unique": true, "finished": true}, {"guest": "Charlamagne Tha God", "phrase": "Gets Heated", "verb": "Gets", "season": 3, "unique": false, "finished": true}, {"guest": "DJ Snake", "phrase": "Reveals His Human Side", "verb": "Reveals", "season": 3, "unique": false, "finished": true}, {"guest": "Guy Fieri", "phrase": "Becomes the Mayor of Spicy Wings", "verb": "Becomes", "season": 3, "unique": false, "finished": true}, {"guest": "Kevin Love", "phrase": "Gets Dunked On", "verb": "Gets", "season": 3, "unique": false, "finished": true}, {"guest": "Neil deGrasse Tyson", "phrase": "Explains the Universe", "verb": "Explains", "season": 3, "unique": false, "finished": true}, {"guest": "Thomas Middleditch", "phrase": "Does Improv", "verb": "Does", "season": 3, "unique": false, "finished": true}, {"guest": "Andy Cohen", "phrase": "Spills the Tea", "verb": "Spills", "season": 3, "unique": true, "finished": true}, {"guest": "Tom Arnold", "phrase": "Melts Down", "verb": "Melts", "season": 3, "unique": false, "finished": true}, {"guest": "Coyote Peterson", "phrase": "Gets STUNG", "verb": "Gets", "season": 3, "unique": false, "finished": true}, {"guest": "Nick Kroll", "phrase": "Delivers a PSA", "verb": "Delivers", "season": 3, "unique": false, "finished": true}, {"guest": "Brett Baker (superfan)", "phrase": "Grills Sean Evans", "verb": "Grills", "season": 3, "unique": true, "finished": true}, {"guest": "Seth Rogen and Dominic Cooper", "phrase": "Suffer", "verb": "Suffer", "season": 3, "unique": true, "finished": true}, {"guest": "Cara Delevingne", "phrase": "Shows Her Hot Sauce Balls", "verb": "Shows", "season": 4, "unique": true, "finished": true}, {"guest": "Liam Payne", "phrase": "Gets Cocky", "verb": "Gets", "season": 4, "unique": false, "finished": true}, {"guest": "Steve-O", "phrase": "Tells Insane Stories", "verb": "Tells", "season": 4, "unique": true, "finished": true}, {"guest": "Vince Staples", "phrase": "Delivers Hot Takes", "verb": "Delivers", "season": 4, "unique": false, "finished": true}, {"guest": "Adam Richman", "phrase": "Fanboys Out", "verb": "Fanboys", "season": 4, "unique": true, "finished": true}, {"guest": "ASAP Ferg", "phrase": "Harlem Shakes", "verb": "Harlem", "season": 4, "unique": true, "finished": true}, {"guest": "Kevin Durant", "phrase": "Sweats It Out", "verb": "Sweats", "season": 4, "unique": false, "finished": true}, {"guest": "Henry Rollins", "phrase": "Channels His Anger at Spicy Wings", "verb": "Channels", "season": 4, "unique": false, "finished": true}, {"guest": "Dillon Francis", "phrase": "Hurts His Body with Spicy Wings", "verb": "Hurts", "season": 4, "unique": true, "finished": true}, {"guest": "Joji", "phrase": "Sets His Face on Fire", "verb": "Sets", "season": 4, "unique": false, "finished": true}, {"guest": "Wanda Sykes", "phrase": "Confesses Everything", "verb": "Confesses", "season": 4, "unique": true, "finished": true}, {"guest": "Terry Crews", "phrase": "Hallucinates", "verb": "Hallucinates", "season": 4, "unique": true, "finished": true}, {"guest": "Gary Vaynerchuk", "phrase": "Tests His Mental Toughness", "verb": "Tests", "season": 4, "unique": false, "finished": true}, {"guest": "Artie Lange", "phrase": "Is Raw and Uncensored", "verb": "Is", "season": 4, "unique": false, "finished": true}, {"guest": "Chris Jericho", "phrase": "Gets Body Slammed", "verb": "Gets", "season": 4, "unique": false, "finished": true}, {"guest": "Gabrielle Union", "phrase": "Impersonates DMX", "verb": "Impersonates", "season": 4, "unique": false, "finished": true}, {"guest": "Wale", "phrase": "Battles Spicy Wings Live", "verb": "Battles", "season": 4, "unique": false, "finished": true}, {"guest": "Bob Saget", "phrase": "Hiccups Uncontrollably", "verb": "Hiccups", "season": 4, "unique": true, "finished": true}, {"guest": "Mario Batali", "phrase": "Celebrates Thanksgiving with Spicy Wings", "verb": "Celebrates", "season": 4, "unique": false, "finished": false}, {"guest": "Alexa Chung", "phrase": "Fears for Her Life", "verb": "Fears", "season": 4, "unique": false, "finished": true}, {"guest": "Logic", "phrase": "Solves a Rubik's Cube", "verb": "Solves", "season": 4, "unique": true, "finished": true}, {"guest": "Casey Neistat", "phrase": "Melts His Face Off", "verb": "Melts", "season": 4, "unique": false, "finished": true}, {"guest": "Chili Klaus", "phrase": "Faces the Most Extreme Hot Ones Ever", "verb": "Faces", "season": 4, "unique": true, "finished": true}, {"guest": "Taraji P. Henson", "phrase": "Needs a Stunt Double to Eat Spicy Wings", "verb": "Needs", "season": 5, "unique": false, "finished": false}, {"guest": "Sasha Banks", "phrase": "Bosses Up", "verb": "Bosses", "season": 5, "unique": true, "finished": true}, {"guest": "Von Miller", "phrase": "Geeks Out", "verb": "Geeks", "season": 5, "unique": true, "finished": true}, {"guest": "Rich Brian", "phrase": "Experiences Peak Bromance", "verb": "Experiences", "season": 5, "unique": false, "finished": true}, {"guest": "Hannibal Buress", "phrase": "Freestyles", "verb": "Freestyles", "season": 5, "unique": true, "finished": true}, {"guest": "Michael B. Jordan", "phrase": "Gets Knocked Out", "verb": "Gets", "season": 5, "unique": false, "finished": true}, {"guest": "Ty Burrell", "phrase": "Fears Sudden Death", "verb": "Fears", "season": 5, "unique": false, "finished": true}, {"guest": "Charlize Theron", "phrase": "Takes a Rorschach Test", "verb": "Takes", "season": 5, "unique": false, "finished": true}, {"guest": "Adam Rippon", "phrase": "Competes in the Olympics of Eating Spicy Wings", "verb": "Competes", "season": 5, "unique": true, "finished": true}, {"guest": "Gabriel Iglesias", "phrase": "Does Wrestling Trivia", "verb": "Does", "season": 5, "unique": false, "finished": true}, {"guest": "Shawn Mendes", "phrase": "Reveals a Different Side of Himself", "verb": "Reveals", "season": 5, "unique": false, "finished": true}, {"guest": "Philip DeFranco", "phrase": "Sets a YouTube Record", "verb": "Sets", "season": 5, "unique": false, "finished": true}, {"guest": "Trick Daddy", "phrase": "Prays for Help", "verb": "Prays", "season": 5, "unique": true, "finished": true}, {"guest": "Tyra Banks", "phrase": "Cries For Her Mom", "verb": "Cries", "season": 5, "unique": false, "finished": true}, {"guest": "Alton Brown", "phrase": "Rigorously Reviews Spicy Wings", "verb": "Rigorously", "season": 5, "unique": true, "finished": true}, {"guest": "John Mayer", "phrase": "Has a Sing-Off", "verb": "Has", "season": 5, "unique": false, "finished": true}, {"guest": "Johnny Knoxville", "phrase": "Gets Smoked", "verb": "Gets", "season": 6, "unique": false, "finished": true}, {"guest": "Natalie Portman", "phrase": "Pirouettes in Pain", "verb": "Pirouettes", "season": 6, "unique": true, "finished": true}, {"guest": "Marques Brownlee", "phrase": "Rates Hot Sauce Labels", "verb": "Rates", "season": 6, "unique": true, "finished": true}, {"guest": "Joel Embiid", "phrase": "Trusts the Process", "verb": "Trusts", "season": 6, "unique": true, "finished": true}, {"guest": "Tom Segura", "phrase": "Tears Up", "verb": "Tears", "season": 6, "unique": true, "finished": true}, {"guest": "Joji and Rich Brian", "phrase": "Play the Newlywed Game", "verb": "Play", "season": 6, "unique": true, "finished": true}, {"guest": "Wiz Khalifa", "phrase": "Gets Smoked Out", "verb": "Gets", "season": 6, "unique": false, "finished": true}, {"guest": "Al Roker", "phrase": "Gets Hit by a Heat Wave of Spicy Wings", "verb": "Gets", "season": 6, "unique": false, "finished": true}, {"guest": "Michael Cera", "phrase": "Experiences Mouth Pains", "verb": "Experiences", "season": 6, "unique": false, "finished": true}, {"guest": "Issa Rae", "phrase": "Raps", "verb": "Raps", "season": 6, "unique": true, "finished": true}, {"guest": "Rhett & Link", "phrase": "Hiccup Uncontrollably", "verb": "Hiccup", "season": 6, "unique": true, "finished": true}, {"guest": "Jeff Goldblum", "phrase": "Says He Likes to Be Called Daddy", "verb": "Says", "season": 6, "unique": false, "finished": true}, {"guest": "Eddie Huang", "phrase": "Seeks Revenge Against Spicy Wings", "verb": "Seeks", "season": 6, "unique": false, "finished": true}, {"guest": "Chrissy Teigen", "phrase": "Gets Drunk", "verb": "Gets", "season": 7, "unique": false, "finished": true}, {"guest": "Tenacious D", "phrase": "Gets Rocked", "verb": "Gets", "season": 7, "unique": false, "finished": true}, {"guest": "Anderson .Paak", "phrase": "Sings Hot Sauce Ballads", "verb": "Sings", "season": 7, "unique": true, "finished": true}, {"guest": "Adam Carolla", "phrase": "Rants Like a Pro", "verb": "Rants", "season": 7, "unique": true, "finished": true}, {"guest": "Lil Yachty", "phrase": "Has His First Experience With Spicy Wings", "verb": "Has", "season": 7, "unique": false, "finished": false}, {"guest": "E-40", "phrase": "Asks a Fan to Save Him", "verb": "Asks", "season": 7, "unique": true, "finished": false}, {"guest": "Lilly Singh", "phrase": "Fears for Her Life", "verb": "Fears", "season": 7, "unique": false, "finished": true}, {"guest": "Blake Griffin", "phrase": "Gets Full-Court Pressed", "verb": "Gets", "season": 7, "unique": false, "finished": true}, {"guest": "Bill Burr", "phrase": "Gets Red in the Face", "verb": "Gets", "season": 7, "unique": false, "finished": true}, {"guest": "Pete Holmes", "phrase": "Does Improv", "verb": "Does", "season": 7, "unique": false, "finished": true}, {"guest": "Vanessa Hudgens", "phrase": "Does Tongue Twisters", "verb": "Does", "season": 7, "unique": false, "finished": true}, {"guest": "Weird Al Yankovic", "phrase": "Goes Beyond Insanity", "verb": "Goes", "season": 7, "unique": false, "finished": true}, {"guest": "Gordon Ramsay", "phrase": "Savagely Critiques Spicy Wings", "verb": "Savagely", "season": 8, "unique": true, "finished": true}, {"guest": "Abbi and Ilana of Broad City", "phrase": "Go Numb", "verb": "Go", "season": 8, "unique": true, "finished": true}, {"guest": "Seth Meyers", "phrase": "Unravels", "verb": "Unravels", "season": 8, "unique": true, "finished": true}, {"guest": "Ken Jeong", "phrase": "Performs a Physical", "verb": "Performs", "season": 8, "unique": true, "finished": true}, {"guest": "Desus and Mero", "phrase": "Get Smacked", "verb": "Get", "season": 8, "unique": true, "finished": true}, {"guest": "Offset", "phrase": "Screams Like Ric Flair", "verb": "Screams", "season": 8, "unique": false, "finished": true}, {"guest": "Billie Eilish", "phrase": "Freaks Out", "verb": "Freaks", "season": 8, "unique": true, "finished": true}, {"guest": "Shaq", "phrase": "Tries to Not Make a Face", "verb": "Tries", "season": 8, "unique": false, "finished": false}, {"guest": "Theo Von", "phrase": "Fights the Dark Arts", "verb": "Fights", "season": 8, "unique": true, "finished": true}, {"guest": "Jimmy Butler", "phrase": "Goes Rocky Balboa", "verb": "Goes", "season": 8, "unique": false, "finished": true}, {"guest": "Chelsea Handler", "phrase": "Goes Off the Rails", "verb": "Goes", "season": 8, "unique": false, "finished": true}, {"guest": "Scarlett Johansson", "phrase": "Tries To Not Spoil Avengers", "verb": "Tries", "season": 8, "unique": false, "finished": true}, {"guest": "The Jonas Brothers", "phrase": "Burn Up", "verb": "Burn", "season": 9, "unique": true, "finished": true}, {"guest": "Halle Berry", "phrase": "Refuses to Lose to Spicy Wings", "verb": "Refuses", "season": 9, "unique": true, "finished": true}, {"guest": "Trevor Noah", "phrase": "Rides a Pain Rollercoaster", "verb": "Rides", "season": 9, "unique": true, "finished": true}, {"guest": "Aubrey Plaza", "phrase": "Snorts Milk", "verb": "Snorts", "season": 9, "unique": true, "finished": true}, {"guest": "Schoolboy Q", "phrase": "Learns to Respect Spicy Wings", "verb": "Learns", "season": 9, "unique": false, "finished": true}, {"guest": "Adam Devine", "phrase": "Gets Patriotic", "verb": "Gets", "season": 9, "unique": false, "finished": true}, {"guest": "Kumail Nanjiani", "phrase": "Sweats Intensely", "verb": "Sweats", "season": 9, "unique": false, "finished": true}, {"guest": "Binging with Babish", "phrase": "Gets a Tattoo", "verb": "Gets", "season": 9, "unique": false, "finished": true}, {"guest": "Juice WRLD", "phrase": "Eats Spicy Wings Live", "verb": "Eats", "season": 9, "unique": false, "finished": true}, {"guest": "Idris Elba", "phrase": "Wants to Fight", "verb": "Wants", "season": 9, "unique": true, "finished": true}, {"guest": "Kristen Bell", "phrase": "Ponders Morality", "verb": "Ponders", "season": 9, "unique": true, "finished": true}, {"guest": "Stone Cold Steve Austin", "phrase": "Puts the Stunner", "verb": "Puts", "season": 9, "unique": true, "finished": true}, {"guest": "Jay Pharoah", "phrase": "Channels Keanu Reeves", "verb": "Channels", "season": 9, "unique": false, "finished": true}, {"guest": "Shia LaBeouf", "phrase": "Sheds a Tear", "verb": "Sheds", "season": 10, "unique": true, "finished": true}, {"guest": "Ashton Kutcher", "phrase": "Gets an Endorphin Rush", "verb": "Gets", "season": 10, "unique": false, "finished": true}, {"guest": "Noel Gallagher", "phrase": "Looks Back in Anger at Spicy Wings", "verb": "Looks", "season": 10, "unique": true, "finished": true}, {"guest": "Liza Koshy", "phrase": "Meets Her Future Self", "verb": "Meets", "season": 10, "unique": false, "finished": true}, {"guest": "Paul Rudd", "phrase": "Does a Historic Dab", "verb": "Does", "season": 10, "unique": false, "finished": true}, {"guest": "Maisie Williams", "phrase": "Shivers Uncontrollably", "verb": "Shivers", "season": 10, "unique": true, "finished": true}, {"guest": "Nick Offerman", "phrase": "Gets the Job Done", "verb": "Gets", "season": 10, "unique": false, "finished": true}, {"guest": "DaBaby", "phrase": "Crushes Ice Cream", "verb": "Crushes", "season": 10, "unique": true, "finished": true}, {"guest": "Kristen Stewart", "phrase": "Brings the Angels to Eat Spicy Wings", "verb": "Brings", "season": 10, "unique": true, "finished": true}, {"guest": "Chance the Rapper", "phrase": "Battles Spicy Wings", "verb": "Battles", "season": 10, "unique": false, "finished": false}, {"guest": "Brad Leone", "phrase": "Celebrates Thanksgiving With Spicy Wings", "verb": "Celebrates", "season": 10, "unique": false, "finished": true}, {"guest": "John Boyega", "phrase": "Summons the Force", "verb": "Summons", "season": 10, "unique": true, "finished": true}, {"guest": "Margot Robbie", "phrase": "Pushes Her Limits", "verb": "Pushes", "season": 11, "unique": true, "finished": true}, {"guest": "Zo\u00eb Kravitz", "phrase": "Gets Trippy", "verb": "Gets", "season": 11, "unique": false, "finished": true}, {"guest": "Will Ferrell", "phrase": "Deeply Regrets", "verb": "Deeply", "season": 11, "unique": true, "finished": true}, {"guest": "Halsey", "phrase": "Experiences the Jersey Devil", "verb": "Experiences", "season": 11, "unique": false, "finished": true}, {"guest": "Pete Davidson", "phrase": "Drips With Sweat", "verb": "Drips", "season": 11, "unique": true, "finished": true}, {"guest": "David Dobrik", "phrase": "Experiences Real Pain", "verb": "Experiences", "season": 11, "unique": false, "finished": true}, {"guest": "Big Sean", "phrase": "Goes On a Spiritual Journey", "verb": "Goes", "season": 11, "unique": false, "finished": true}, {"guest": "Zac Efron", "phrase": "Ups the Ante", "verb": "Ups", "season": 11, "unique": true, "finished": true}, {"guest": "Justin Timberlake", "phrase": "Cries a River", "verb": "Cries", "season": 11, "unique": false, "finished": true}, {"guest": "Tom Segura", "phrase": "Keeps It High and Tight", "verb": "Keeps", "season": 12, "unique": false, "finished": true}, {"guest": "Brie Larson", "phrase": "Takes On a New Form", "verb": "Takes", "season": 12, "unique": false, "finished": true}, {"guest": "Eric Andr\u00e9", "phrase": "Enters A Fugue State", "verb": "Enters", "season": 12, "unique": true, "finished": false}, {"guest": "Dan Levy", "phrase": "Gets Panicky", "verb": "Gets", "season": 12, "unique": false, "finished": true}, {"guest": "Dua Lipa", "phrase": "Sweats from Her Eyes", "verb": "Sweats", "season": 12, "unique": false, "finished": true}, {"guest": "T-Pain", "phrase": "Tastes Gas", "verb": "Tastes", "season": 12, "unique": false, "finished": true}, {"guest": "Adam Richman", "phrase": "Impersonates Noel Gallagher", "verb": "Impersonates", "season": 12, "unique": false, "finished": true}, {"guest": "Action Bronson", "phrase": "Shakes It Out", "verb": "Shakes", "season": 12, "unique": true, "finished": true}, {"guest": "Drew Barrymore", "phrase": "Has a Hard Time Processing", "verb": "Has", "season": 12, "unique": false, "finished": true}, {"guest": "Joseph Gordon-Levitt", "phrase": "Gets Cocky", "verb": "Gets", "season": 12, "unique": false, "finished": true}, {"guest": "Jessica Alba", "phrase": "Applies Lip Gloss", "verb": "Applies", "season": 13, "unique": true, "finished": true}, {"guest": "Ronda Rousey", "phrase": "Splits Bones", "verb": "Splits", "season": 13, "unique": true, "finished": true}, {"guest": "Naomi Campbell", "phrase": "Almost Faints", "verb": "Almost", "season": 13, "unique": false, "finished": true}, {"guest": "Matthew McConaughey", "phrase": "Grunts it Out", "verb": "Grunts", "season": 13, "unique": true, "finished": true}, {"guest": "Sam Smith", "phrase": "Screams in Pain", "verb": "Screams", "season": 13, "unique": false, "finished": true}, {"guest": "Saweetie", "phrase": "Almost Tap Tap Taps Out", "verb": "Almost", "season": 13, "unique": false, "finished": true}, {"guest": "Thundercat", "phrase": "Relives a Hot Sauce Nightmare", "verb": "Relives", "season": 13, "unique": true, "finished": true}, {"guest": "The Undertaker", "phrase": "Takes Care of Business", "verb": "Takes", "season": 13, "unique": false, "finished": true}, {"guest": "Lil Nas X", "phrase": "Celebrates Thanksgiving With the Biggest Dab Ever", "verb": "Celebrates", "season": 13, "unique": false, "finished": true}, {"guest": "Daniel Radcliffe", "phrase": "Catches a Head Rush", "verb": "Catches", "season": 13, "unique": false, "finished": true}, {"guest": "Priyanka Chopra Jonas", "phrase": "Explains the Essence of Hot Sauce", "verb": "Explains", "season": 14, "unique": false, "finished": true}, {"guest": "Dustin Poirier", "phrase": "is Paid in Full", "verb": "is", "season": 14, "unique": true, "finished": true}, {"guest": "Kevin James", "phrase": "Forgets Who He Is", "verb": "Forgets", "season": 14, "unique": true, "finished": true}, {"guest": "Awkwafina", "phrase": "Gets Hot and Cold", "verb": "Gets", "season": 14, "unique": false, "finished": true}, {"guest": "Kenan Thompson", "phrase": "Becomes a Card-Carrying Spiceman", "verb": "Becomes", "season": 14, "unique": false, "finished": true}, {"guest": "Anthony Mackie", "phrase": "Quotes Shakespeare", "verb": "Quotes", "season": 14, "unique": true, "finished": true}, {"guest": "Paris Hilton", "phrase": "Says That's Hot", "verb": "Says", "season": 14, "unique": false, "finished": true}, {"guest": "Jennifer Garner", "phrase": "Says Golly", "verb": "Says", "season": 14, "unique": false, "finished": true}, {"guest": "J Balvin", "phrase": "Meets The Devil", "verb": "Meets", "season": 14, "unique": false, "finished": true}, {"guest": "Jeffrey Dean", "phrase": "Morgan Can't Feel His Face", "verb": "Morgan", "season": 14, "unique": true, "finished": true}, {"guest": "Russell Brand", "phrase": "Serenades Superfan Brett Baker", "verb": "Serenades", "season": 14, "unique": true, "finished": true}, {"guest": "Steve-O", "phrase": "Takes It Too Far", "verb": "Takes", "season": 14, "unique": false, "finished": true}, {"guest": "Jack Harlow", "phrase": "Returns to the Studio to Eat Spicy Wings", "verb": "Returns", "season": 15, "unique": false, "finished": true}, {"guest": "Kamaru Usman", "phrase": "Goes to the Mat Against Spicy Wings", "verb": "Goes", "season": 15, "unique": false, "finished": true}, {"guest": "Quavo", "phrase": "Is Stunned", "verb": "Is", "season": 15, "unique": false, "finished": false}, {"guest": "Elizabeth Olsen", "phrase": "Feels Brave", "verb": "Feels", "season": 15, "unique": false, "finished": true}, {"guest": "Olivia Rodrigo", "phrase": "Burns Her Lips", "verb": "Burns", "season": 15, "unique": true, "finished": true}, {"guest": "Malcolm Gladwell", "phrase": "Hits the Tipping Point", "verb": "Hits", "season": 15, "unique": false, "finished": true}, {"guest": "Ed Sheeran", "phrase": "Tries to Avoid Failure", "verb": "Tries", "season": 15, "unique": false, "finished": true}, {"guest": "David Harbour", "phrase": "Feels Out of Control", "verb": "Feels", "season": 15, "unique": false, "finished": true}, {"guest": "Michael Che", "phrase": "Gs Up", "verb": "Gs", "season": 15, "unique": true, "finished": true}, {"guest": "Lorde", "phrase": "Drops the Mic", "verb": "Drops", "season": 15, "unique": true, "finished": true}, {"guest": "Matt Damon", "phrase": "Sweats From His Scalp", "verb": "Sweats", "season": 15, "unique": false, "finished": true}, {"guest": "Elijah Wood", "phrase": "Tastes the Lava of Mount Doom", "verb": "Tastes", "season": 15, "unique": false, "finished": true}, {"guest": "Jimmy Kimmel", "phrase": "Feels Poisoned", "verb": "Feels", "season": 16, "unique": false, "finished": true}, {"guest": "Derrick Lewis", "phrase": "Is Not Okay", "verb": "Is", "season": 16, "unique": false, "finished": true}, {"guest": "Jon Bernthal", "phrase": "Gets Punished", "verb": "Gets", "season": 16, "unique": false, "finished": true}, {"guest": "Megan Thee Stallion", "phrase": "Turns Into Hot Girl Meg", "verb": "Turns", "season": 16, "unique": false, "finished": true}, {"guest": "CL", "phrase": "Gets Extra Spicy", "verb": "Gets", "season": 16, "unique": false, "finished": true}, {"guest": "Mila Kunis", "phrase": "Hits the Ranch", "verb": "Hits", "season": 16, "unique": false, "finished": true}, {"guest": "Salma Hayek", "phrase": "Adopts Sean Evans", "verb": "Adopts", "season": 16, "unique": true, "finished": true}, {"guest": "Jeremy Renner", "phrase": "Goes Blind in One Eye", "verb": "Goes", "season": 16, "unique": false, "finished": true}, {"guest": "David Chang", "phrase": "Sweats Like Crazy", "verb": "Sweats", "season": 16, "unique": false, "finished": true}, {"guest": "Brad Underwood", "phrase": "Gets Full Court Pressed", "verb": "Gets", "season": 16, "unique": false, "finished": true}, {"guest": "Rob Lowe", "phrase": "Ruins Thanksgiving By", "verb": "Ruins", "season": 16, "unique": true, "finished": true}, {"guest": "Simu Liu", "phrase": "Chugs Boba", "verb": "Chugs", "season": 16, "unique": true, "finished": true}, {"guest": "Tom Holland", "phrase": "Calls for a Doctor", "verb": "Calls", "season": 16, "unique": false, "finished": true}, {"guest": "Gordon Ramsay", "phrase": "Returns for the Hot Ones Holiday Extravaganza", "verb": "Returns", "season": 16, "unique": false, "finished": true}, {"guest": "Seth Rogen", "phrase": "Scorches his Tongue", "verb": "Scorches", "season": 17, "unique": true, "finished": true}, {"guest": "Tracee Ellis Ross", "phrase": "Calls For Her Mommy", "verb": "Calls", "season": 17, "unique": false, "finished": true}, {"guest": "Ed Helms", "phrase": "Needs a Mouth Medic", "verb": "Needs", "season": 17, "unique": false, "finished": true}, {"guest": "Sebastian Stan", "phrase": "Learns About Himself", "verb": "Learns", "season": 17, "unique": false, "finished": true}, {"guest": "Andrew Zimmern", "phrase": "Has a Bucket List Moment", "verb": "Has", "season": 17, "unique": false, "finished": true}, {"guest": "Dave Grohl", "phrase": "Makes a New Friend", "verb": "Makes", "season": 17, "unique": false, "finished": true}, {"guest": "Colin Farrell", "phrase": "Searches for Meaning in the Pain of Spicy Wings", "verb": "Searches", "season": 17, "unique": false, "finished": true}, {"guest": "Courteney Cox", "phrase": "Becomes Friends With Spicy Wings", "verb": "Becomes", "season": 17, "unique": false, "finished": true}, {"guest": "Jacob Elordi", "phrase": "Feels Euphoric", "verb": "Feels", "season": 17, "unique": false, "finished": true}, {"guest": "Pusha T", "phrase": "Has Beef With Spicy Wings", "verb": "Has", "season": 17, "unique": false, "finished": false}, {"guest": "Leslie Mann", "phrase": "Gets Revenge", "verb": "Gets", "season": 17, "unique": false, "finished": true}, {"guest": "Josh Brolin", "phrase": "Licks the Palate of Absurdity", "verb": "Licks", "season": 17, "unique": true, "finished": true}, {"guest": "Post Malone", "phrase": "Has His Brain Hacked", "verb": "Has", "season": 18, "unique": false, "finished": true}, {"guest": "Millie Bobby Brown", "phrase": "Needs a Milkshake", "verb": "Needs", "season": 18, "unique": false, "finished": true}, {"guest": "Queen Latifah", "phrase": "Sets It Off", "verb": "Sets", "season": 18, "unique": false, "finished": true}, {"guest": "Kevin Bacon", "phrase": "Needs Six Degrees of Separation From Spicy Wings", "verb": "Needs", "season": 18, "unique": false, "finished": true}, {"guest": "Khlo\u00e9 Kardashian", "phrase": "Holds Back Tears", "verb": "Holds", "season": 18, "unique": true, "finished": true}, {"guest": "Andrew Callaghan", "phrase": "Goes For the Marrow", "verb": "Goes", "season": 18, "unique": false, "finished": true}, {"guest": "Tessa Thompson", "phrase": "Feels Alive", "verb": "Feels", "season": 18, "unique": false, "finished": true}, {"guest": "Daniel Kaluuya", "phrase": "Listens to His Ego", "verb": "Listens", "season": 18, "unique": true, "finished": true}, {"guest": "Bear Grylls", "phrase": "Battles For Survival Against Spicy Wings", "verb": "Battles", "season": 18, "unique": false, "finished": true}, {"guest": "Mark Rober", "phrase": "Gives Up on Science", "verb": "Gives", "season": 18, "unique": false, "finished": true}, {"guest": "Lizzo", "phrase": "Earns Her Hot Sauce Crown", "verb": "Earns", "season": 18, "unique": true, "finished": true}, {"guest": "Neil Patrick Harris", "phrase": "Needs Magic To Escape Spicy Wings", "verb": "Needs", "season": 18, "unique": false, "finished": true}, {"guest": "David Blaine", "phrase": "Does Magic", "verb": "Does", "season": 19, "unique": false, "finished": true}, {"guest": "Kid Cudi", "phrase": "Goes to the Moon", "verb": "Goes", "season": 19, "unique": false, "finished": true}, {"guest": "Viola Davis", "phrase": "Gives a Master Class", "verb": "Gives", "season": 19, "unique": false, "finished": true}, {"guest": "Cole Bennett", "phrase": "Needs Lemonade", "verb": "Needs", "season": 19, "unique": false, "finished": true}, {"guest": "Cate Blanchett", "phrase": "Pretends No One's Watching", "verb": "Pretends", "season": 19, "unique": true, "finished": true}, {"guest": "Emma Chamberlain", "phrase": "Has a Spiritual Awakening", "verb": "Has", "season": 19, "unique": false, "finished": true}, {"guest": "James Corden", "phrase": "Experiences Mouth Karma", "verb": "Experiences", "season": 19, "unique": false, "finished": true}, {"guest": "Ramy Youssef", "phrase": "Lives on a Prayer", "verb": "Lives", "season": 19, "unique": true, "finished": true}, {"guest": "Israel Adesanya", "phrase": "Gives Thanks", "verb": "Gives", "season": 19, "unique": false, "finished": true}, {"guest": "Zoe Salda\u00f1a", "phrase": "Gets Scorched", "verb": "Gets", "season": 19, "unique": false, "finished": true}, {"guest": "Kate Hudson", "phrase": "Stays Positive", "verb": "Stays", "season": 19, "unique": false, "finished": true}, {"guest": "Paul Dano", "phrase": "Needs A Burp Cloth", "verb": "Needs", "season": 19, "unique": false, "finished": true}, {"guest": "Anna Kendrick", "phrase": "Gets The Giggles", "verb": "Gets", "season": 20, "unique": false, "finished": true}, {"guest": "Bryan Cranston", "phrase": "Fully Commits", "verb": "Fully", "season": 20, "unique": true, "finished": true}, {"guest": "Lenny Kravitz", "phrase": "Stays Cool", "verb": "Stays", "season": 20, "unique": false, "finished": true}, {"guest": "Austin Butler", "phrase": "Searches For Comfort", "verb": "Searches", "season": 20, "unique": false, "finished": true}, {"guest": "LL Cool J", "phrase": "Needs Some Milk", "verb": "Needs", "season": 20, "unique": false, "finished": true}, {"guest": "Jenna Ortega", "phrase": "Doesn\u2019t Flinch", "verb": "Doesn\u2019t", "season": 20, "unique": true, "finished": true}, {"guest": "Pedro Pascal", "phrase": "Cries From His Head", "verb": "Cries", "season": 20, "unique": false, "finished": true}, {"guest": "Niall Horan", "phrase": "Gets The Shakes", "verb": "Gets", "season": 20, "unique": false, "finished": true}, {"guest": "Bob Odenkirk", "phrase": "Has A Fire In His Belly", "verb": "Has", "season": 20, "unique": false, "finished": true}, {"guest": "Florence Pugh", "phrase": "Sweats From Her Eyebrows", "verb": "Sweats", "season": 20, "unique": false, "finished": true}, {"guest": "Kieran Culkin", "phrase": "Fires Sean", "verb": "Fires", "season": 20, "unique": false, "finished": true}, {"guest": "Jake Gyllenhaal", "phrase": "Gets a Leg Cramp", "verb": "Gets", "season": 20, "unique": false, "finished": true}, {"guest": "Jason Sudeikis", "phrase": "Embraces Da Bomb", "verb": "Embraces", "season": 21, "unique": false, "finished": true}, {"guest": "Julia Louis-Dreyfus", "phrase": "Fires Her Publicist", "verb": "Fires", "season": 21, "unique": false, "finished": true}, {"guest": "Rosal\u00eda", "phrase": "Can\u2019t Stop Laughing", "verb": "Can\u2019t", "season": 21, "unique": true, "finished": true}, {"guest": "Melissa McCarthy", "phrase": "Prepares For the Worst", "verb": "Prepares", "season": 21, "unique": true, "finished": true}, {"guest": "Jennifer Lawrence", "phrase": "Sobs in Pain", "verb": "Sobs", "season": 21, "unique": true, "finished": true}, {"guest": "John Mulaney", "phrase": "Seeks the Truth", "verb": "Seeks", "season": 21, "unique": false, "finished": true}, {"guest": "Lewis Capaldi", "phrase": "Grasps for a Lifeline", "verb": "Grasps", "season": 21, "unique": true, "finished": true}, {"guest": "Harry Kane", "phrase": "Takes One For the Team", "verb": "Takes", "season": 21, "unique": false, "finished": true}, {"guest": "John Stamos", "phrase": "Falls Out of His Chair", "verb": "Falls", "season": 21, "unique": true, "finished": true}, {"guest": "Stephen Curry", "phrase": "Is On Fire", "verb": "Is", "season": 21, "unique": false, "finished": true}], "heat": [{"season": 1, "mean": 67974.0, "min": 747, "max": 357000}, {"season": 2, "mean": 115679.0, "min": 2200, "max": 550000}, {"season": 3, "mean": 121219.0, "min": 2200, "max": 550000}, {"season": 4, "mean": 284130.0, "min": 2100, "max": 2000000}, {"season": 5, "mean": 332770.0, "min": 450, "max": 2000000}, {"season": 6, "mean": 292770.0, "min": 600, "max": 2000000}, {"season": 7, "mean": 299790.0, "min": 1800, "max": 2000000}, {"season": 8, "mean": 306580.0, "min": 1800, "max": 2000000}, {"season": 9, "mean": 307580.0, "min": 1800, "max": 2000000}, {"season": 10, "mean": 310240.0, "min": 1800, "max": 2000000}, {"season": 11, "mean": 311590.0, "min": 1800, "max": 2000000}, {"season": 12, "mean": 309930.0, "min": 1700, "max": 2000000}, {"season": 13, "mean": 307200.0, "min": 1700, "max": 2000000}, {"season": 14, "mean": 309180.0, "min": 1800, "max": 2000000}, {"season": 15, "mean": 306940.0, "min": 1800, "max": 2000000}, {"season": 16, "mean": 313500.0, "min": 1700, "max": 2000000}, {"season": 17, "mean": 313010.0, "min": 1800, "max": 2000000}, {"season": 18, "mean": 308950.0, "min": 1800, "max": 2000000}, {"season": 19, "mean": 304970.0, "min": 1600, "max": 2000000}, {"season": 20, "mean": 304040.0, "min": 1600, "max": 2000000}, {"season": 21, "mean": 305920.0, "min": 1600, "max": 2000000}], "finish": [{"season": 1, "sum": 6, "count": 8}, {"season": 2, "sum": 37, "count": 40}, {"season": 3, "sum": 23, "count": 24}, {"season": 4, "sum": 23, "count": 24}, {"season": 5, "sum": 15, "count": 16}, {"season": 6, "sum": 13, "count": 13}, {"season": 7, "sum": 10, "count": 12}, {"season": 8, "sum": 11, "count": 12}, {"season": 9, "sum": 13, "count": 13}, {"season": 10, "sum": 11, "count": 12}, {"season": 11, "sum": 9, "count": 9}, {"season": 12, "sum": 9, "count": 10}, {"season": 13, "sum": 11, "count": 11}, {"season": 14, "sum": 12, "count": 12}, {"season": 15, "sum": 11, "count": 12}, {"season": 16, "sum": 14, "count": 14}, {"season": 17, "sum": 11, "count": 12}, {"season": 18, "sum": 12, "count": 12}, {"season": 19, "sum": 12, "count": 12}, {"season": 20, "sum": 12, "count": 12}, {"season": 21, "sum": 10, "count": 10}], "verbs": ["Gets", "Talks", "Has", "Goes", "Does", "Needs", "Sweats", "Takes"]};
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+const fmt = n => Math.round(n).toLocaleString("en-US");
+
+/* ---------- Scoville ruler ---------- */
+(() => {
+  const svg = document.getElementById("ruler");
+  const x0 = 10, x1 = 630, lo = Math.log10(500), hi = Math.log10(3e6);
+  const X = v => x0 + (Math.log10(v) - lo) / (hi - lo) * (x1 - x0);
+  const grad = el("linearGradient", { id: "heatgrad" }, el("defs", {}, svg));
+  [["0%", "var(--mild)"], ["55%", "var(--habanero)"], ["100%", "var(--chili)"]].forEach(([o, c]) => el("stop", { offset: o, "stop-color": c }, grad));
+  el("rect", { x: x0, y: 38, width: x1 - x0, height: 8, rx: 4, fill: "url(#heatgrad)" }, svg);
+  [1e3, 1e4, 1e5, 1e6].forEach(v => {
+    el("line", { x1: X(v), x2: X(v), y1: 46, y2: 52, stroke: "var(--muted)" }, svg);
+    el("text", { x: X(v), y: 66, "text-anchor": "middle" }, svg).textContent = fmt(v);
+  });
+  const marks = [[747, "Texas Pete, 747", "start"], [5000, "Jalapeño ≈ 5,000", "middle"], [357000, "S1 hottest", "middle"], [2e6, "S4+ hottest, 2M", "end"]];
+  marks.forEach(([v, t, a]) => {
+    el("line", { x1: X(v), x2: X(v), y1: 22, y2: 38, stroke: "var(--ink)", "stroke-width": 1.5 }, svg);
+    el("text", { x: X(v) + (a === "start" ? -2 : a === "end" ? 2 : 0), y: 16, "text-anchor": a, class: "lab" }, svg).textContent = t;
+  });
+})();
+
+/* ---------- Heat chart ---------- */
+(() => {
+  const svg = document.getElementById("heat"), H = D.heat;
+  const m = { l: 74, r: 96, t: 20, b: 40 }, W = 760, Ht = 360;
+  const lo = Math.log10(500), hi = Math.log10(3e6);
+  const X = s => m.l + (s - 1) / 20 * (W - m.l - m.r);
+  const Y = v => Ht - m.b - (Math.log10(v) - lo) / (hi - lo) * (Ht - m.t - m.b);
+  [1e3, 1e4, 1e5, 1e6].forEach(v => {
+    el("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: "var(--rule)" }, svg);
+    el("text", { x: m.l - 10, y: Y(v) + 4, "text-anchor": "end" }, svg).textContent = fmt(v);
+  });
+  for (let s = 1; s <= 21; s++) if (s === 1 || s % 4 === 0 || s === 21)
+    el("text", { x: X(s), y: Ht - m.b + 22, "text-anchor": "middle" }, svg).textContent = "S" + s;
+  const guide = el("line", { y1: m.t, y2: Ht - m.b, stroke: "var(--muted)", "stroke-dasharray": "3 3", opacity: 0 }, svg);
+  const series = [["max", "var(--chili)", "Hottest"], ["mean", "var(--habanero)", "Average"], ["min", "var(--mild)", "Mildest"]];
+  const dots = {};
+  series.forEach(([k, c, name]) => {
+    el("path", { d: H.map((r, i) => (i ? "L" : "M") + X(r.season) + " " + Y(r[k])).join(" "), fill: "none", stroke: c, "stroke-width": 3, "stroke-linejoin": "round" }, svg);
+    const last = H[H.length - 1];
+    el("text", { x: X(21) + 10, y: Y(last[k]) + 4, class: "end", fill: c }, svg).textContent = name;
+    dots[k] = el("circle", { r: 5, fill: c, stroke: "var(--bg)", "stroke-width": 2, opacity: 0 }, svg);
+  });
+  // annotation
+  el("path", { d: `M ${X(5.6)} ${Y(9e5)} Q ${X(4.6)} ${Y(1.3e6)} ${X(4.15)} ${Y(1.85e6)}`, fill: "none", stroke: "var(--ink)", "stroke-width": 1.2 }, svg);
+  const a = el("text", { x: X(5.8), y: Y(7.5e5), class: "annot" }, svg);
+  a.textContent = "Season 4: the hottest sauce jumps to 2 million";
+  const ro = document.getElementById("readout");
+  function show(i) {
+    const r = H[i];
+    guide.setAttribute("x1", X(r.season)); guide.setAttribute("x2", X(r.season)); guide.setAttribute("opacity", 1);
+    series.forEach(([k]) => { dots[k].setAttribute("cx", X(r.season)); dots[k].setAttribute("cy", Y(r[k])); dots[k].setAttribute("opacity", 1); });
+    ro.innerHTML = `<span><i>Season</i> ${r.season}</span><span><i>Hottest</i> ${fmt(r.max)}</span><span><i>Average</i> ${fmt(r.mean)}</span><span><i>Mildest</i> ${fmt(r.min)}</span>`;
+  }
+  const hit = el("rect", { x: m.l - 10, y: m.t, width: W - m.l - m.r + 20, height: Ht - m.t - m.b, fill: "transparent" }, svg);
+  const pick = e => {
+    const pt = svg.createSVGPoint(); const src = e.touches ? e.touches[0] : e;
+    pt.x = src.clientX; pt.y = src.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const s = Math.max(1, Math.min(21, Math.round((p.x - m.l) / (W - m.l - m.r) * 20 + 1)));
+    show(s - 1);
+  };
+  hit.addEventListener("mousemove", pick); hit.addEventListener("touchstart", pick, { passive: true }); hit.addEventListener("touchmove", pick, { passive: true });
+  show(3);
+})();
+
+/* ---------- Tap-out strip ---------- */
+(() => {
+  const strip = document.getElementById("strip"), labs = document.getElementById("slabels"), q = document.getElementById("quitters");
+  const quit = D.titles.filter(t => !t.finished);
+  D.finish.forEach(f => {
+    const col = document.createElement("div"); col.className = "s-col";
+    const n = f.count - f.sum;
+    col.title = `Season ${f.season}: ${f.sum} of ${f.count} finished`;
+    if (n === 0) { const p = document.createElement("i"); p.className = "perfect"; col.appendChild(p); }
+    for (let i = 0; i < n; i++) { const d = document.createElement("i"); d.className = "dot"; col.appendChild(d); }
+    strip.appendChild(col);
+    const l = document.createElement("div"); l.textContent = f.season; labs.appendChild(l);
+  });
+  quit.forEach(t => {
+    const r = document.createElement("div");
+    const s = document.createElement("span"); s.className = "sn"; s.textContent = "S" + t.season;
+    const g = document.createElement("span"); g.textContent = t.guest;
+    r.append(s, g); q.appendChild(r);
+  });
+})();
+
+/* ---------- Spin the wings ---------- */
+(() => {
+  const card = document.getElementById("spinCard"), sg = document.getElementById("sg"), sp = document.getElementById("sp"), btn = document.getElementById("spinBtn");
+  const rand = () => D.titles[Math.floor(Math.random() * D.titles.length)];
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  btn.addEventListener("click", () => {
+    btn.disabled = true; card.classList.remove("landed");
+    const land = () => {
+      const p = rand();
+      sg.textContent = p.guest + " · Season " + p.season + (p.finished ? "" : " · tapped out");
+      sp.textContent = p.phrase;
+      card.classList.remove("rolling"); void card.offsetWidth; card.classList.add("landed");
+      btn.disabled = false; btn.textContent = "Spin again";
+    };
+    if (reduced) return land();
+    card.classList.add("rolling");
+    let delay = 40, elapsed = 0;
+    (function tick() {
+      const d = rand(); sg.textContent = d.guest; sp.textContent = d.phrase;
+      elapsed += delay;
+      if (elapsed < 1800) { delay *= 1.12; setTimeout(tick, delay); } else land();
+    })();
+  });
+})();
+
+/* ---------- Title wall ---------- */
+(() => {
+  const grid = document.getElementById("grid"), box = document.getElementById("filters"), more = document.getElementById("more"), count = document.getElementById("count");
+  const tiles = D.titles.map(d => {
+    const t = document.createElement("div"); t.className = "tile"; t.title = "Season " + d.season;
+    const g = document.createElement("span"); g.className = "g"; g.textContent = d.guest;
+    const p = document.createElement("span"); p.className = "ph"; p.textContent = d.phrase;
+    t.append(g, p);
+    if (!d.finished) { const q = document.createElement("span"); q.className = "q"; q.textContent = "tapped out"; t.appendChild(q); }
+    grid.appendChild(t); return { t, d };
+  });
+  const filters = [
+    { label: "One-of-a-kind", test: d => d.unique, note: n => `${n} titles use a verb that never appears again` },
+    { label: "Tapped out", test: d => !d.finished, note: n => `The ${n} guests who didn't finish` },
+    { label: "All", test: () => true, note: n => `${n} episode titles` },
+    ...D.verbs.slice(0, 6).map(v => ({ label: v + "…", test: d => d.verb === v, note: n => `${n} titles start with “${v}”` }))
+  ];
+  filters.forEach((f, i) => {
+    const b = document.createElement("button"); b.type = "button"; b.id = "f" + i; b.textContent = f.label;
+    b.addEventListener("click", () => apply(i)); box.appendChild(b);
+  });
+  const LIMIT = 30; let current = 0;
+  function apply(i, expand = false) {
+    current = i; const f = filters[i]; let n = 0;
+    tiles.forEach(({ t, d }) => { const hit = f.test(d); if (hit) n++; t.hidden = !(hit && (expand || n <= LIMIT)); });
+    [...box.children].forEach((b, j) => { b.classList.toggle("active", j === i); b.setAttribute("aria-pressed", j === i); });
+    count.textContent = f.note(n);
+    more.hidden = !(n > LIMIT && !expand);
+    more.textContent = "Show all " + n;
+  }
+  more.addEventListener("click", () => apply(current, true));
+  apply(0);
+})();
+</script>
+</body>
+</html>
