@@ -40,8 +40,8 @@ export default function Home() {
         <div className="rule" />
         <div className="bio">
           <p>
-            I'm a third-year at UC San Diego studying data science and political science, and I'm
-            drawn to problems that sit somewhere between people and technology.
+            I'm a third-year at UC San Diego studying data science and political science, and I love working
+            on problems that sit somewhere between people and technology.
           </p>
           <p>
             This fall, I'm interning with the U.S. Department of Defense through Innovating for
@@ -132,7 +132,7 @@ export default function Home() {
 
       <figure className="photo">
         <img src="/tahoe.jpg" alt="Cindy looking out over Emerald Bay at Lake Tahoe at dusk, shot on film" />
-        <figcaption>Emerald Bay, Lake Tahoe. Shot on film.</figcaption>
+        <figcaption>Emerald Bay, Lake Tahoe. 2025.</figcaption>
       </figure>
     </div>
   );
