@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Space is progress, not escapism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Writing page: same reading column and type as hot-ones.html, plus a "published in" note for pieces that ran elsewhere */
+:root {
+  --bg: #1c1b19; --card: #232220; --ink: #ece8e1; --muted: #a19d95; --faint: #8a857c; --rule: #34322e; --underline: #6b675f;
+  --body: Newsreader, "Iowan Old Style", Georgia, serif;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 23px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--underline); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color .2s; }
+a:hover { text-decoration-color: var(--ink); }
+.back { font-size: 17px; font-style: italic; color: var(--faint); text-decoration: none; }
+.back:hover { color: var(--ink); }
+.page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 64px; }
+.col { width: 100%; max-width: 900px; margin: 0 auto; }
+.story { display: flex; flex-direction: column; gap: 56px; }
+section { display: flex; flex-direction: column; gap: 18px; }
+p { margin: 0; }
+h1 { font-family: var(--body); text-wrap: balance; margin: 0; line-height: 1.05; font-size: clamp(40px, 6.5vw, 64px); font-weight: 400; letter-spacing: -0.02em; }
+.kicker { font-size: 17px; font-style: italic; color: var(--faint); }
+.byline { font-size: 17px; color: var(--muted); }
+.byline b { color: var(--ink); }
+.hero { display: flex; flex-direction: column; gap: 18px; }
+
+/* "Originally published in" note */
+.pub { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; border: 1px solid var(--rule); border-left: 3px solid var(--ink); background: var(--card); border-radius: 4px; padding: 12px 16px; font-size: 16px; line-height: 1.45; color: var(--muted); }
+.pub b { color: var(--ink); font-weight: 500; }
+.pub a { margin-left: auto; font-style: italic; white-space: nowrap; }
+
+
+/* desktop renders at 80% scale, matching hot-ones.html */
+@media (min-width: 700px) { .page { zoom: 0.8; } }
+@media (max-width: 560px) {
+  body { font-size: 17.5px; }
+  .pub a { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<div class="page"><article class="story">
+
+  <header class="col hero">
+    <a class="back" href="/">← Cindy Chen</a>
+    <div class="pub">
+      <span>Originally published in <b>The UCSD Guardian</b> · Opinion · April 13, 2026, as part of the Two Cents feature “Is the Artemis II mission exploration or exploitation?”</span>
+      <a href="https://ucsdguardian.org/2026/04/13/two-cents-is-the-artemis-ii-mision-exploration-or-exploitation/">Read it there →</a>
+    </div>
+    <div class="kicker">Opinion · April 2026</div>
+    <h1>Space is progress, not escapism</h1>
+    <p class="byline">By <b>Cindy Chen</b></p>
+  </header>
+
+  <section class="col">
+    <p>Last week, I watched “Project Hail Mary,” a story about a lone astronaut who is shipped off into space to save the universe. This got me thinking about where our fascination with space comes from. Since the 1950’s space race, space has captured the public imagination, from films like “Hidden Figures” to “Interstellar.” Yet, with more pressing worries on Earth, missions like Artemis II are often dismissed as escapism or frivolous spending.</p>
+    <p>While understandable — after all, resources are finite and the needs on Earth are immediate — space exploration is a necessary investment.</p>
+    <p>Though scientific advances are often judged by their immediate usefulness, history suggests that the most consequential inventions rarely begin that way. Quantum mechanics began as an attempt to understand why heated metal glowed odd colors; today, it has informed lifesaving technologies like the MRI. The laser, once famously dismissed by its creator as “a solution in search of a problem,” now appears in barcode scanners and eye surgery.</p>
+    <p>Space exploration is no different. Since the late 1950s, NASA’s missions — once considered impractical — have given rise to technologies like GPS and modern weather forecasting and fundamentally redefined the way we respond to natural disasters. They have also deepened our understanding of Earth itself: Satellite data exposed the ozone hole, prompting the Montreal Protocol to help prevent further atmospheric harm.</p>
+    <p>While Artemis II’s mission to send four astronauts around the moon may not seem immediately practical, its value, like many others before it, will only become clear in hindsight.</p>
+    <p>Beyond usefulness, one of the most salient criticisms of space travel centers on its association with wealth and spectacle. Jeff Bezos’ Blue Origin, which flew Katy Perry and other celebrities on suborbital flights, offered tickets costing upward of $28 million for a brief journey to the edge of space. Public reaction was swift and critical. In a world rife with inequality, such flagrant displays of wealth feel detached, excessive, and difficult to justify.</p>
+    <p>Yet, early exclusivity is often where innovation begins, rather than where it settles. Planes, for example, were once reserved for society’s elite during the interwar period; over time, falling costs turned what was once luxury into a standard mode of travel. Similarly, missions like Artemis II are noncommercial now but may one day become commonplace. The Blue Origin expedition is not a flaw unique to space exploration but a reflection of Earth’s inequalities.</p>
+    <p>Beyond the practical, there is another reason to look outward.</p>
+    <p>In a world dominated by immediate crises, missions like Artemis II offer a rare chance to think beyond the here and now. There is something intrinsically human about pushing past the boundaries of what is known and asking questions we cannot yet answer: how the universe began, whether life exists beyond Earth, and what our place is within it. It is that same impulse that led us to discover that Earth is not the center of the universe and the origins of galaxies billions of light-years away.</p>
+    <p>Our search into space keeps those questions alive — not because they are easy or immediately useful, but because they remind us that there is still more to discover.</p>
+  </section>
+
+</article></div>
+</body>
+</html>
