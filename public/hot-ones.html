@@ -19,13 +19,13 @@
   color-scheme: dark;
 }
 
-body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 20px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 23px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--underline); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color .2s; }
 a:hover { text-decoration-color: var(--ink); }
 .back { font-size: 17px; font-style: italic; color: var(--faint); text-decoration: none; }
 .back:hover { color: var(--ink); }
-.page { padding-left: max(16px, 6vw, env(safe-area-inset-left, 0px)); padding-right: max(16px, 6vw, env(safe-area-inset-right, 0px)); padding-block: 48px 64px; }
-.col { width: 100%; max-width: 720px; margin: 0 auto; }
+.page { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 64px; }
+.col { width: 100%; max-width: 900px; margin: 0 auto; }
 .wide { width: 100%; max-width: 1060px; margin: 0 auto; }
 .story { display: flex; flex-direction: column; gap: 56px; }
 section { display: flex; flex-direction: column; gap: 18px; }
@@ -133,6 +133,8 @@ button:disabled { opacity: .55; cursor: default; }
 .more { align-self: flex-start; }
 
 .method { border-top: 1px solid var(--rule); padding-top: 18px; font-size: 16px; color: var(--muted); line-height: 1.6; }
+/* desktop renders at 80% scale (the size it was designed to read at) */
+@media (min-width: 700px) { .page { zoom: 0.8; } }
 @media (max-width: 560px) {
   body { font-size: 17.5px; }
   .dek { font-size: 19px; }
