@@ -36,7 +36,7 @@ export default function Home() {
     <div className="home">
       <div className="content">
       <header className="header">
-        <h1 className="name">Cindy Chen</h1>
+        <h1 className="name">cindy chen</h1>
         <div className="rule" />
         <div className="bio">
           <p>
@@ -63,7 +63,7 @@ export default function Home() {
       </header>
 
       <section className="section">
-        <h2 className="section-title">Writing</h2>
+        <h2 className="section-title">writing</h2>
         <ul className="list">
           {writing.map((post, i) => (
             <li key={i}>
@@ -78,7 +78,7 @@ export default function Home() {
       </section>
 
       <section className="section">
-        <h2 className="section-title">Publications</h2>
+        <h2 className="section-title">publications</h2>
         <ul className="list">
           {publications.map((pub) => (
             <li key={pub.title}>
@@ -104,7 +104,7 @@ export default function Home() {
       </section>
 
       <section className="section">
-        <h2 className="section-title">Projects</h2>
+        <h2 className="section-title">projects</h2>
         <ul className="list">
           {projects.map((p) => (
             <li key={p.name}>
