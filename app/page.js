@@ -40,8 +40,8 @@ export default function Home() {
         <div className="rule" />
         <div className="bio">
           <p>
-            I'm a third-year at UC San Diego studying data science and political science, and I love working
-            on problems that sit somewhere between people and technology.
+            I'm a third-year at UC San Diego studying data science and political science, and I love working on
+            problems that sit somewhere between people and technology.
           </p>
           <p>
             This fall, I'm interning with the U.S. Department of Defense through Innovating for
