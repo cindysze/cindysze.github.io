@@ -19,7 +19,7 @@ const publications = [
 
 const projects = [
   { name: "Hot Ones by the Numbers", desc: "an interactive data story on 21 seasons of the spicy-wings talk show", href: "/hot-ones.html" },
-  { name: "CityPulse", desc: "an interactive tool comparing inequality across three New York boroughs", href: "https://public.tableau.com/app/profile/cindy.chen2025/viz/CityPulse/Dashboard13" },
+  { name: "ScaleSurfer", desc: "a deep-learning tool for fast brain MRI segmentation", href: "https://github.com/voytekresearch/scalesurfer" },
   // no href yet: renders as plain text until there's a link
   { name: "Cold email pipeline", desc: "a Python tool I built to automate outreach emails" },
 ];
@@ -28,7 +28,7 @@ const links = [
   { name: "Email", href: "mailto:cyc014@ucsd.edu" },
   { name: "GitHub", href: "https://github.com/cindysze" },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/cindychen65/" },
-  { name: "Resume", href: "/resume.pdf" },
+  // { name: "Resume", href: "/resume.pdf" }, // uncomment once resume.pdf is in public/
 ];
 // ---------------------------------------------
 
