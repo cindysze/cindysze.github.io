@@ -64,7 +64,7 @@ export default function Home() {
             On campus, I coordinate the creative sections at the{" "}
             <a href="https://ucsdguardian.org/">UCSD Guardian</a>, which means I get to work with some
             wonderfully talented people, and I write opinion pieces there too. Outside of school, you'll
-            find me playing chess or guitar, <a href="/film">shooting film</a>, or surfing some very modest
+            find me playing chess or guitar, shooting film, or surfing some very modest
             waves.
           </p>
           <p className="currently">Currently looking for Summer 2027 internships.</p>
