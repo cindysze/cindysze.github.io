@@ -56,8 +56,8 @@ export default function Home() {
             This fall, I'm interning with the U.S. Department of Defense through Innovating for
             National Security, where I research how drone operators work with autonomous drones for
             the Army. I'm also a research assistant at the{" "}
-            <a href="https://voyteklab.com/">Voytek Lab</a>, helping validate a brain MRI segmentation
-            pipeline (<a href="https://www.biorxiv.org/content/10.64898/2026.07.01.735927v1.full">preprint</a>), and I work remotely with Dr. Sophia Simeng Han at Stanford Law School on a
+            <a href="https://voyteklab.com/">Voytek Lab</a>, helping create a machine learning tool that maps
+            brain MRIs (<a href="https://www.biorxiv.org/content/10.64898/2026.07.01.735927v1.full">preprint</a>), and I work remotely with Dr. Sophia Simeng Han at Stanford Law School on a
             benchmark that tests how well AI models reason through legal decisions.
           </p>
           <p>
