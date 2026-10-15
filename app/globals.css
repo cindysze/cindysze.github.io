@@ -149,6 +149,7 @@ a:hover { color: #ffffff; text-decoration-color: var(--text); }
   border-top: 1px solid var(--line);
   font-size: 15px;
 }
+.nolink { color: var(--text); }
 .footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
 .place { color: var(--faint); font-style: italic; }
 

@@ -5,7 +5,7 @@ const writing = [
   { title: "Jane Doe, we are with you", label: "UCSD Guardian", date: "October 2026", href: "/jane-doe.html" },
   { title: "Space is progress, not escapism", label: "UCSD Guardian", date: "April 2026", href: "/space.html" },
   { title: "The First Time Machines Took Our Jobs", label: "Notes", date: "March 2026", href: "/machines.html" },
-  { title: "[Guardian opinion piece title]", label: "UCSD Guardian", date: "[Month Year]", href: "#" },
+  { title: "Eileen Gu doesn’t owe you her allegiance", label: "UCSD Guardian", date: "March 2026", href: "/eileen-gu.html" },
 ];
 
 const publications = [
@@ -19,8 +19,9 @@ const publications = [
 
 const projects = [
   { name: "Hot Ones by the Numbers", desc: "an interactive data story on 21 seasons of the spicy-wings talk show", href: "/hot-ones.html" },
-  { name: "Job hunter", desc: "a Python tool that finds internship postings and helps me apply faster", href: "#" },
-  { name: "Sandal stock checker", desc: "tells me when my size of Rainbow sandals is back in stock", href: "#" },
+  { name: "CityPulse", desc: "an interactive tool comparing inequality across three New York boroughs", href: "https://public.tableau.com/app/profile/cindy.chen2025/viz/CityPulse/Dashboard13" },
+  // no href yet: renders as plain text until there's a link
+  { name: "Cold email pipeline", desc: "a Python tool I built to automate outreach emails" },
 ];
 
 const links = [
@@ -71,7 +72,7 @@ export default function Home() {
       </header>
 
       <section className="section">
-        <h2 className="section-title">writing</h2>
+        <h2 className="section-title">Writing</h2>
         <ul className="list">
           {writing.map((post, i) => (
             <li key={i}>
@@ -86,7 +87,7 @@ export default function Home() {
       </section>
 
       <section className="section">
-        <h2 className="section-title">publications</h2>
+        <h2 className="section-title">Publications</h2>
         <ul className="list">
           {publications.map((pub) => (
             <li key={pub.title}>
@@ -112,14 +113,14 @@ export default function Home() {
       </section>
 
       <section className="section">
-        <h2 className="section-title">projects</h2>
+        <h2 className="section-title">Projects</h2>
         <ul className="list">
           {projects.map((p) => (
             <li key={p.name}>
               <span className="item">
                 <span className="bullet" aria-hidden="true" />
                 <span>
-                  <a href={p.href}>{p.name}</a>
+                  {p.href ? <a href={p.href}>{p.name}</a> : <span className="nolink">{p.name}</span>}
                   <span className="desc">, {p.desc}</span>
                 </span>
               </span>
