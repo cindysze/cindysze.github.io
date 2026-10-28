@@ -26,7 +26,6 @@ const projects = [
 
 const links = [
   { name: "Email", href: "mailto:cyc014@ucsd.edu" },
-  { name: "GitHub", href: "https://github.com/cindysze" },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/cindychen65/" },
   // { name: "Resume", href: "/resume.pdf" }, // uncomment once resume.pdf is in public/
 ];
